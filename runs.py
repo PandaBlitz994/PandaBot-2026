@@ -29,5 +29,7 @@ run_green = Color(h=154, s=82, v=49)
 run_yellow = Color(h=51, s=73, v=99)
 run_orrange = Color(h=7, s=85, v=98)
 
-while True:
-    print(run_color.hsv())
+chassis.settings(400)
+
+chassis.straight(650)
+chassis.straight(-100)
