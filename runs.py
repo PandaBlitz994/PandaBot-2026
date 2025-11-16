@@ -16,10 +16,12 @@ floor_color = ColorSensor(Port.C)  # Green
 
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 81)
 chassis.use_gyro(True)
-DriveBase.settings(chassis, 200)
+
 
 # default:
-d_settings = chassis.settings(200, 750, 150, 750)
+def default_settings():
+    chassis.settings(200, 350, 150, 750)
+
 
 # reflection color
 run_white = Color(h=0, s=0, v=100)
@@ -30,5 +32,36 @@ run_yellow = Color(h=50, s=71, v=100)
 run_black = Color(h=200, s=22, v=17)
 run_orenge = Color(h=7, s=86, v=100)
 
-while True:
-    print(run_color.hsv())
+
+def wheels_cleaning():
+    while True:
+        chassis.settings(1000, 1000)
+        chassis.straight(10000)
+
+
+def run_1():
+    # setup
+    hub.imu.reset_heading(0)
+    chassis.settings(500)
+    left_arm.run_time(-700, 1500, wait=None)
+    # mission 1
+    chassis.straight(700)
+    chassis.straight(-200)
+    chassis.straight(75)
+    left_arm.run_angle(500, 1100)
+    # mission 2
+    chassis.turn(30)
+    chassis.straight(150)
+    chassis.turn(-75)
+    chassis.straight(200)
+    chassis.straight(-230)
+    chassis.turn(150)
+
+
+if run_color.hsv() == run_white:
+    hub.display.char("W")
+    hub.light.on(Color.WHITE)
+    run_1()
+
+# hub.display.char(run_letter)
+# hub.light.on(Color.BLUE)
