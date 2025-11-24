@@ -20,13 +20,13 @@ chassis.use_gyro(True)
 
 
 # default:
-d_settings = chassis.settings(200, 350, 150, 750)
-d_settings
+def d_settings():
+    chassis.settings(300, 500, 150, 750)
 
 
 def reset():
     hub.imu.reset_heading(0)
-    d_settings
+    d_settings()
 
 
 # reflection color
@@ -61,7 +61,7 @@ def wheels_cleaning():
 
 def run_1():
     # setup
-    chassis.setup()
+    chassis.reset()
     chassis.settings(500)
     left_arm.run_time(-700, 1500, wait=None)
     # mission 1
@@ -80,7 +80,7 @@ def run_1():
 
 def run_2():
     # setup
-    chassis.setup()
+    # chassis.setup()
     #
     chassis.straight(680)
     left_arm.run_angle(-500, 250)
@@ -93,17 +93,19 @@ def run_none():
     chassis.straight(300)
 
 
-runs = [
-    Run(Color.WHITE, run_1, "W"),
-    Run(Color.YELLOW, run_2, "Y"),
-]
+# runs = [
+#     Run(Color.WHITE, run_1, "W"),
+#     Run(Color.YELLOW, run_2, "Y"),
+# ]
 
-ran = False
-while not ran:
-    for run in runs:
-        if run_color.color() == run.color:
-            ran = True
-            run.run()
+# ran = False
+# while not ran:
+#     for run in runs:
+#         if run_color.color() == run.color:
+#             ran = True
+#             run.run()
+
+run_1()
 
 # def detect_color():
 #     if (run_color.hsv().s == run_yellow.s) and (run_color.hsv().v == run_yellow.v) and (run_color)
