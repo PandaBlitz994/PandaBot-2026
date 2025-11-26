@@ -82,8 +82,11 @@ def run_2():
     # setup
     # chassis.setup()
     #
-    chassis.straight(680)
-    left_arm.run_angle(-500, 250)
+    # chassis.straight(680)
+    left_arm.run_angle(500, 80)
+    left_arm.run_angle(-500, 80)
+    right_arm.run_angle(500, 400)
+    right_arm.run_angle(-500, 450)
 
 
 def run_3():
@@ -104,9 +107,7 @@ while not ran:
     for run in runs:
         if run_color.color() == run[0]:
             ran = True
-            print(run[2])
             hub.display.number(run[2])
             hub.light.on(run[0])
             run[1]()
-            print(run_color.color())
             break
