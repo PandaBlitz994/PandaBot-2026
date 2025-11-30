@@ -29,6 +29,9 @@ def reset():
     d_settings()
 
 
+reset()
+
+
 # reflection color
 Color.WHITE = Color(h=0, s=0, v=100)
 Color.RED = Color(h=352, s=92, v=75)
@@ -59,30 +62,48 @@ def wheels_cleaning():
         chassis.straight(10000)
 
 
+def straight_until_black():
+    chassis.drive(200, 0)
+    while True:
+        if floor_color.color() == Color(h=0, s=0, v=-40):
+            chassis.stop()
+            break
+
+
 def run_1():
     # setup
-    chassis.reset()
+    reset()
     chassis.settings(500)
-    left_arm.run_time(-700, 1500, wait=None)
+    left_arm.run_time(-700, 1000, wait=None)
     # mission 1
-    chassis.straight(700)
-    chassis.straight(-200)
+    chassis.straight(670)
+    chassis.straight(-170)
     chassis.straight(75)
-    left_arm.run_angle(500, 1100)
+    left_arm.run_time(700, 1500)
     # mission 2
     chassis.turn(30)
-    chassis.straight(150)
+    chassis.straight(170)
     chassis.turn(-75)
     chassis.straight(200)
-    chassis.straight(-230)
-    chassis.turn(150)
+    # misson_4
+    # chassis.straight(-270)
+    # chassis.turn(-135)
+    # chassis.straight(-350)
+    # chassis.straight(50.6767)
+    # chassis.turn(-90)
+    # right_arm.run_time(-500, 950)
+    # straight_until_black()
+    right_arm.run_time(speed=-500, time=1000)
+    chassis.straight(-10)
+    chassis.curve(radius=-300, angle=45)
+    chassis.straight(-260)
+    right_arm.run_time(500, 1000)
 
 
 def run_2():
     # setup
-    # chassis.setup()
-    #
-    # chassis.straight(680)
+    reset()
+
     left_arm.run_angle(500, 80)
     left_arm.run_angle(-500, 80)
     right_arm.run_angle(500, 400)
@@ -91,15 +112,24 @@ def run_2():
 
 def run_3():
     # setup
+    reset()
     chassis.settings(500)
+    # pushing vrum-vrum car
     chassis.straight(-600)
     chassis.straight(300)
+
+
+def run_4():
+    # setup
+    reset()
+    right_arm.run_angle(500, 90)
 
 
 runs = [
     (Color.WHITE, run_1, 1),
     (Color.YELLOW, run_2, 2),
     (Color.NONE, run_3, 3),
+    (Color.BLUE, run_4, 4),
 ]
 
 ran = False
