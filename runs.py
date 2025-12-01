@@ -21,7 +21,7 @@ chassis.use_gyro(True)
 
 # default:
 def d_settings():
-    chassis.settings(300, 500, 150, 750)
+    chassis.settings(500, 500, 150, 750)
 
 
 def reset():
@@ -73,7 +73,6 @@ def straight_until_black():
 def run_1():
     # setup
     reset()
-    chassis.settings(500)
     left_arm.run_time(-700, 1000, wait=None)
     # mission 1
     chassis.straight(670)
@@ -97,13 +96,14 @@ def run_1():
     chassis.straight(-10)
     chassis.curve(radius=-300, angle=45)
     chassis.straight(-260)
-    right_arm.run_time(500, 1000)
+    right_arm.run_time(speed=500, time=1600)
+    wait(1000)
+    left_arm.run_time(speed=700, time=1000)
 
 
 def run_2():
     # setup
     reset()
-
     left_arm.run_angle(500, 80)
     left_arm.run_angle(-500, 80)
     right_arm.run_angle(500, 400)
@@ -113,7 +113,6 @@ def run_2():
 def run_3():
     # setup
     reset()
-    chassis.settings(500)
     # pushing vrum-vrum car
     chassis.straight(-600)
     chassis.straight(300)
@@ -122,7 +121,22 @@ def run_3():
 def run_4():
     # setup
     reset()
-    right_arm.run_angle(500, 90)
+    right_arm.run_time(-500, 1000, wait=None)
+    wait(500)
+    # mission 1
+    chassis.straight(420)
+    # 1
+    right_arm.run_angle(600, 90)
+    right_arm.run_angle(500, -90)
+    # 2
+    right_arm.run_angle(600, 90)
+    right_arm.run_angle(500, -90)
+    # 3
+    right_arm.run_angle(600, 90)
+    right_arm.run_angle(500, -90)
+    # 4
+    right_arm.run_angle(600, 90)
+    right_arm.run_angle(500, -90)
 
 
 runs = [
