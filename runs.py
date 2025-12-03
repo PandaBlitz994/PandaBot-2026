@@ -74,6 +74,7 @@ def run_1():
     # setup
     reset()
     left_arm.run_time(-700, 1000, wait=None)
+    right_arm.run_time(-700, 1000, wait=None)
     # mission 1
     chassis.straight(670)
     chassis.straight(-170)
@@ -84,21 +85,14 @@ def run_1():
     chassis.straight(170)
     chassis.turn(-75)
     chassis.straight(200)
-    # misson_4
-    # chassis.straight(-270)
-    # chassis.turn(-135)
-    # chassis.straight(-350)
-    # chassis.straight(50.6767)
-    # chassis.turn(-90)
-    # right_arm.run_time(-500, 950)
-    # straight_until_black()
-    right_arm.run_time(speed=-500, time=1000)
-    chassis.straight(-10)
+    # mission 3
+    right_arm.run_time(speed=700, time=1500, wait=None)
+    chassis.straight(-40)
     chassis.curve(radius=-300, angle=45)
-    chassis.straight(-260)
-    right_arm.run_time(speed=500, time=1600)
-    wait(1000)
+    chassis.straight(-250)
+    right_arm.run_time(speed=-700, time=1600)
     left_arm.run_time(speed=700, time=1000)
+    # return home
 
 
 def run_2():
