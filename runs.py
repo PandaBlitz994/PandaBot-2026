@@ -6,7 +6,7 @@ from pybricks.tools import wait, StopWatch
 from pybricks.tools import hub_menu
 
 
-# Declaring ports
+# Declaring ports 
 hub = PrimeHub()
 left_wheel = Motor(Port.A, Direction.COUNTERCLOCKWISE)  # Cyan
 right_wheel = Motor(Port.E)  # red
