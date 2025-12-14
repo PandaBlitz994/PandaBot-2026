@@ -112,6 +112,7 @@ def run_1():
 def run_2():
     # setup
     reset()
+    # pushing & pulling ship
     right_arm.run_time(750, 1000, wait=None)
     chassis.straight(580)
     right_arm.run_time(-750, 1500)
@@ -119,20 +120,25 @@ def run_2():
     right_arm.run_time(750, 1500)
     chassis.straight(250)
     chassis.straight(-50.67)
+    # moving to the diging
     chassis.turn(-30)
     chassis.straight(170)
     chassis.turn(30)
-    # chassis.straight(40)
+    # chassis.straight(4)
+    # pulling the diging
     right_arm.run_time(-800, 1500)
     for i in range(0, 4):
-        right_wheel.run_angle(500, 70)
+        right_wheel.run_angle(480, 70)
         right_wheel_gyro(0)
 
     right_arm.run_time(750, 1200)
     chassis.turn(-25)
-    right_arm.run_time(-750, 800)
+    right_arm.run_time(-790, 800)
     chassis.straight(40)
+    # moving
     chassis.turn(23)
+    chassis.straight(173)
+    right_arm.run_time(-790, 800)
 
 
 def run_3():
