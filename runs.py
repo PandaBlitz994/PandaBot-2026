@@ -70,6 +70,16 @@ def straight_until_black():
             break
 
 
+def right_wheel_gyro(gyro):
+    while int(hub.imu.heading()) != gyro:
+        if hub.imu.heading() > gyro:
+            right_wheel.run_angle(500, 1, wait=False)
+        elif hub.imu.heading() < -gyro:
+            right_wheel.run_angle(-500, 1, wait=False)
+        else:
+            right_wheel.stop()
+
+
 def run_1():
     # setup
     reset()
@@ -102,36 +112,35 @@ def run_1():
 def run_2():
     # setup
     reset()
-    right_arm.run_time(750,2000,wait=None)
-    left_arm.run_time(-500,350,wait=None)
+    left_arm.run_time(500, 80)
+    left_arm.run_time(-500, 80)
+    right_arm.run_time(500, 400)
+    right_arm.run_time(-500, 450)
     chassis.straight(590)
-    right_arm.run_time(-750,2000)
+    right_arm.run_time(-750,1500)
     chassis.settings(1000)
     chassis.straight(-90)
-    right_arm.run_time(750,2000)
-    chassis.straight(200)
-    chassis.straight(-50)
+    right_arm.run_time(750,1500)
+    chassis.turn(-15)
+    chassis.straight(250)
     chassis.turn(-30)
-    chassis.straight(150)
-    chassis.turn(30)
-    chassis.straight(55)
+    chassis.straight(100)
+    chassis.turn(44)
+    chassis.straight(70)
     right_arm.run_time(-750,1200)
-    right_wheel.run_angle(speed=500, rotation_angle=50)
-    chassis.settings(straight_acceleration=600)
-    for i in range(0, 21, 5):
-        right_wheel.run_angle(600,40)
-        right_wheel.run_angle(600, -50)
-
-    d_settings()
+    chassis.straight(110)
+    chassis.straight(-130)
+    chassis.straight(110)
+    chassis.straight(-130)
+    chassis.straight(110)
+    chassis.straight(-130)
+    chassis.straight(110)
+    chassis.straight(-120)
     right_arm.run_time(750,1200)
     chassis.turn(-25)
-    right_arm.run_time(-750,800)
+    right_arm.run_time(-750, 800)
     chassis.straight(40)
     chassis.turn(23)
-
-
-
-
 
 
 def run_3():
