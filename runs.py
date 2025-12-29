@@ -190,9 +190,8 @@ def run_3_4():
     # mission 3
     left_arm.run_time(speed=700, time=1500)
     # mission 4
-    left_arm.run_time(speed=-500, time=1000, wait=None)
     chassis.turn(90)
-    chassis.straight(-250)
+    chassis.straight(-350)
     chassis.turn(-135)
     chassis.straight(-250)
     
