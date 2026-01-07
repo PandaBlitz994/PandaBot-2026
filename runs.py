@@ -78,17 +78,37 @@ def till_black(speed, turn_rate):
 
 
 def right_wheel_gyro(speed, gyro):
-    right_wheel.run(speed)
-    while True:
-        if int(hub.imu.heading()) == gyro:
-            right_wheel.stop()
-            break
+    current_gyro = int(hub.imu.heading())
+    if current_gyro <= gyro:
+        right_wheel.run(-speed)
+        while True:
+            if int(hub.imu.heading()) >= gyro:
+                left_wheel.stop()
+                break
+
+    elif current_gyro > gyro:
+        right_wheel.run(speed)
+        while True:
+            if int(hub.imu.heading()) <= gyro:
+                right_wheel.stop()
+                break
+
 
 def left_wheel_gyro(speed, gyro):
-    left_wheel.run(speed)
-    while int(hub.imu.heading()) != gyro:
-        if hub.imu.heading() == gyro:
-            left_wheel.stop()
+    current_gyro = int(hub.imu.heading())
+    if current_gyro <= gyro:
+        left_wheel.run(-speed)
+        while True:
+            if int(hub.imu.heading()) >= gyro:
+                left_wheel.stop()
+                break
+
+    elif current_gyro > gyro:
+        left_wheel.run(speed)
+        while True:
+            if int(hub.imu.heading()) <= gyro:
+                left_wheel.stop()
+                break
         
 def straight_time(speed, time):
     chassis.drive(speed, 0)
@@ -151,11 +171,10 @@ def run_2():
     chassis.straight(20, wait=None)
     right_arm.run_until_stalled(-1000)
     wait(100)
-    right_arm.run_angle(speed=1000, rotation_angle=70)
     for i in range(0, 4):
-        right_wheel.run_angle(speed=1000, rotation_angle=50)
+        right_wheel.run_angle(speed=1000, rotation_angle=80)
         wait(100)
-        right_wheel_gyro(-100, 0)
+        right_wheel_gyro(speed=100, gyro=0)
     # mission 3_4
     right_arm.run_until_stalled(1000)
     turn_to(0)
@@ -164,11 +183,10 @@ def run_2():
     till_black(speed=100, turn_rate=0)
     wait(100)
     right_arm.run_angle(speed=-300, rotation_angle=400, wait=None)
-    chassis.straight(160)
+    chassis.straight(140)
     right_arm.run_until_stalled(-1000)
     right_arm.run_angle(speed=800, rotation_angle=300, wait=None)
-    chassis.straight(60)
-    # right_arm.run_time(speed=1000, time=500, wait=None)
+    chassis.straight(40)
     turn_to(0)
     left_arm.run_time(speed=-500, time=1000)
     right_arm.run_time(speed=1000, time=1000)
@@ -239,8 +257,8 @@ def run_3_4():
     right_wheel_gyro(speed=-300, gyro=0)
     right_arm.run_time(speed=300, time=1500, wait=None)
     chassis.straight(-300)
-    chassis.curve(radius=-300, angle=-45, then=Stop.NONE)
-    chassis.straight(500)
+    chassis.curve(radius=-300, angle=-30, then=Stop.NONE)
+    chassis.straight(600)
 
     
 
