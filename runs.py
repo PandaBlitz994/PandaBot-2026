@@ -97,14 +97,14 @@ def right_wheel_gyro(speed, gyro):
 def left_wheel_gyro(speed, gyro):
     current_gyro = int(hub.imu.heading())
     if current_gyro <= gyro:
-        left_wheel.run(-speed)
+        left_wheel.run(speed)
         while True:
             if int(hub.imu.heading()) >= gyro:
                 left_wheel.stop()
                 break
 
     elif current_gyro > gyro:
-        left_wheel.run(speed)
+        left_wheel.run(-speed)
         while True:
             if int(hub.imu.heading()) <= gyro:
                 left_wheel.stop()
@@ -115,7 +115,8 @@ def straight_time(speed, time):
     wait(time)
     chassis.stop
 
-def turn_to(angle):
+def turn_to(angle, turn_speed):
+    chassis.settings(turn_rate=turn_speed)
     start_angle = (hub.imu.heading() + 360) % 360
     deg_to_turn = (angle - start_angle) % 360
     if deg_to_turn >= 180:
@@ -156,6 +157,7 @@ def run_1():
 
 def run_2():
     # setup
+    reset()
     left_arm.run_time(speed=400, time=1000, wait=None)
     right_arm.run_time(speed=1000, time=1500)
     # mission 1
@@ -168,33 +170,28 @@ def run_2():
     chassis.turn(-30)
     chassis.straight(160)
     chassis.turn(30)
-    chassis.straight(20, wait=None)
-    right_arm.run_until_stalled(-1000)
+    till_black(speed=100, turn_rate=0)
+    chassis.straight(-50)
+    right_arm.run_time(speed=-1000, time=1500)
+    right_arm.run_angle(speed=1000, rotation_angle=150)  
     wait(100)
-    for i in range(0, 4):
-        right_wheel.run_angle(speed=1000, rotation_angle=80)
-        wait(100)
+    for i in range(4):
+        right_wheel.run_angle(speed=1000, rotation_angle=70)
         right_wheel_gyro(speed=100, gyro=0)
-    chassis.straight(-30)
+        chassis.straight(-10)
     # mission 3_4
     right_arm.run_time(speed=1000, time=1500)
-    turn_to(0)
+    right_arm.run_angle(speed=-1000, rotation_angle=200)
     chassis.straight(-30)
     wait(100)
     till_black(speed=100, turn_rate=0)
     wait(100)
-    right_arm.run_angle(speed=-300, rotation_angle=400, wait=None)
-    chassis.straight(140)
-    right_arm.run_until_stalled(-1000)
-    right_arm.run_angle(speed=800, rotation_angle=200, wait=None)
-    chassis.straight(40)
-    turn_to(0)
-    left_arm.run_time(speed=-500, time=1000)
-    right_arm.run_time(speed=1000, time=1000)
+    chassis.straight(190)
+    left_arm.run_time(speed=-300, time=1500)
+    # right_arm.run_time(speed=1000, time=1000)
     left_arm.run_time(speed=300, time=1000, wait=None)
     right_arm.run_time(speed=-1000, time=2000)
     # returning home
-    # turn_to(15)
     chassis.straight(500, then=Stop.NONE)
     chassis.curve(radius=300, angle=45, then=Stop.NONE)
 
@@ -236,7 +233,7 @@ def run_3_4():
     left_arm.run_angle(speed=200, rotation_angle=170, wait=None)
     # mission 1
     chassis.straight(420)
-    for i in range(0, 4):
+    for i in range(4):
         right_arm.run_time(speed=500, time=1000)
         right_arm.run_time(speed=-800, time=900)
     # mission 2
@@ -262,14 +259,46 @@ def run_3_4():
     chassis.curve(radius=-300, angle=30, then=Stop.NONE)
     chassis.straight(-300)
 
-    
+def run_5():
+    # setup
+    reset()
+    left_arm.run_time(speed=-1000, time=1000, wait=None)
+    right_arm.run_time(speed=1000, time=1000, wait=None)
+    # mission 1
+    straight_time(speed=-200, time=1000)
+    chassis.use_gyro(False)
+    chassis.use_gyro(True)
+    chassis.straight(30)
+    chassis.settings(turn_rate=100)
+    chassis.turn(-90)
+    d_settings
+    till_black(speed=200, turn_rate=0)
+    chassis.straight(20)
+    left_arm.run_time(speed=500, time=1500)
+    # mission 2
+    chassis.straight(-120)
+    chassis.turn(45)
+    chassis.straight(350)
+    chassis.turn(45)
+    left_arm.run_until_stalled(-1000)
+    # mission 3
+    chassis.turn(-90)
+    chassis.straight(-30)
+    right_arm.run_time(speed=-1000, time=1000)
+    chassis.straight(70)
+    chassis.turn(-45)
+    right_arm.run_time(speed=1000, time=1000)
+    # chassis.straight(100)
+    # right_arm.run_time(speed=-1000, time=1000)
+
 
 
 runs = [
     (Color.WHITE, run_1, 1),
     (Color.YELLOW, run_2, 2),
     (Color.BLUE, run_3_4, 34),
-    (Color.BLACK, wheels_cleaning, 5),
+    (Color.GREEN, run_5, 5),
+    (Color.NONE, wheels_cleaning, 0),
 ]
 
 ran = False
