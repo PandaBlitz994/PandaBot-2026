@@ -174,24 +174,30 @@ def run_2():
     till_black(speed=100, turn_rate=0)
     chassis.straight(-50)
     right_arm.run_time(speed=-1000, time=1500)
-    right_arm.run_angle(speed=1000, rotation_angle=150)  
+    # right_arm.run_angle(speed=1000, rotation_angle=150)  
     wait(100)
+    left_wheel.hold()
     for i in range(4):
-        right_wheel.run_angle(speed=1000, rotation_angle=70)
+        right_wheel.run_angle(speed=1000, rotation_angle=60)
         right_wheel_gyro(speed=100, gyro=0)
-        chassis.straight(-10)
+        # chassis.straight(-10)
     # mission 3_4
     right_arm.run_time(speed=1000, time=1500)
-    right_arm.run_angle(speed=-1000, rotation_angle=200)
+    # right_arm.run_angle(speed=-1000, rotation_angle=150)
+    turn_to(angle=0, turn_speed=50)
     chassis.straight(-30)
     wait(100)
     till_black(speed=100, turn_rate=0)
     wait(100)
-    chassis.straight(190)
-    left_arm.run_time(speed=-300, time=1500)
-    # right_arm.run_time(speed=1000, time=1000)
-    left_arm.run_time(speed=300, time=1000, wait=None)
+    chassis.straight(100)
+    # right_arm.run_time(speed=-1000, time=2000, wait=None)
+    left_arm.run_time(speed=-400, time=1500)
+    left_arm.run_time(speed=400, time=2000)
+    left_arm.run_time(speed=500, time=3000, wait=None)
+    chassis.straight(90)
+    right_wheel.run_angle(speed=500, rotation_angle=40)
     right_arm.run_time(speed=-1000, time=2000)
+    right_wheel.run_angle(speed=-500, rotation_angle=40)
     # returning home
     chassis.straight(500, then=Stop.NONE)
     chassis.curve(radius=300, angle=45, then=Stop.NONE)
@@ -286,9 +292,7 @@ def run_5():
     chassis.straight(-120)
     chassis.turn(45)
     chassis.straight(340)
-    chassis.settings(turn_rate=350)
     chassis.turn(60)
-    d_settings
     left_arm.run_until_stalled(-1000)
     # mission 3
     turn_to(angle=90, turn_speed=100)
@@ -310,9 +314,9 @@ def run_5():
 
 runs = [
     (Color.WHITE, run_1, 1),
-    (Color.YELLOW, run_2, 2),
+    (Color.YELLOW, run_2, 3),
     (Color.BLUE, run_3_4, 34),
-    (Color.GREEN, run_5, 5),
+    (Color.GREEN, run_5, 2),
     (Color.NONE, wheels_cleaning, 0),
 ]
 
