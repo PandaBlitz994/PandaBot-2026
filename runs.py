@@ -218,13 +218,13 @@ def run_3():
     chassis.straight(160)
     chassis.turn(30)
     till_black(speed=100, turn_rate=0)
-    chassis.straight(-50)
+    chassis.straight(-60)
     right_arm.run_time(speed=-1000, time=1500)
     # right_arm.run_angle(speed=1000, rotation_angle=150)  
     wait(100)
     left_wheel.hold()
     for i in range(4):
-        right_wheel.run_angle(speed=1000, rotation_angle=60)
+        right_wheel.run_angle(speed=1000 , rotation_angle=80)
         right_wheel_gyro(speed=100, gyro=0)
         # chassis.straight(-10)
     # mission 3_4
