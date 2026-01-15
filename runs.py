@@ -209,11 +209,11 @@ def run_3():
     right_arm.run_time(speed=1000, time=1500)
     # mission 1
     chassis.straight(560)
-    chassis.settings(1000)
-    chassis.straight(160)
-    d_settings
+    # chassis.settings(1000)
+    # chassis.straight(160)
+    # d_settings
     # mission 2
-    chassis.straight(-70)
+    # chassis.straight(-70)
     chassis.turn(-30)
     chassis.straight(160)
     chassis.turn(30)
@@ -294,7 +294,7 @@ def run_4_5():
     # mission 3
     left_arm.run_time(speed=1000, time=1500)
     # mission 4
-    left_arm.run_angle(speed=-1000, rotation_angle=200)
+    left_arm.run_time(speed=-1000, time=1000)
     chassis.turn(90)
     chassis.straight(-420)
     left_arm.run_time(speed=-500, time=1000, wait=None)
