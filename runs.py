@@ -214,50 +214,16 @@ def green_run():
 def yellow_run():
     # setup
     reset()
-    left_arm.run_time(speed=400, time=1000, wait=None)
-    right_arm.run_time(speed=1000, time=1500)
+    right_arm.run_time(speed=1000, time=1000, wait=None)
     # get on track
-    chassis.straight(560)
-    chassis.turn(-30)
-    chassis.straight(160)
-    chassis.turn(30)
-    till_black(speed=100, turn_rate=0)
-    # lift stuff
-    chassis.straight(-60)
-    right_arm.run_time(speed=-1000, time=1500)
-    wait(100)
-    left_wheel.hold()
-    for _ in range(4):
-        right_wheel.run_angle(speed=1000, rotation_angle=80)
-        right_wheel_gyro(speed=100, gyro=0)
-    # take the tray
-    right_arm.run_time(speed=1000, time=1500)
-    turn_to(angle=0, turn_speed=50)
-    chassis.straight(-30)
-    wait(100)
-    till_black(speed=100, turn_rate=0)
-    wait(100)
-    chassis.straight(100)
-    left_arm.run_time(speed=-400, time=1500)
-    left_arm.run_time(speed=400, time=2000)
-    left_arm.run_time(speed=500, time=3000, wait=None)
-    chassis.straight(90)
-    right_wheel.run_angle(speed=500, rotation_angle=40)
-    right_arm.run_time(speed=-1000, time=2000)
-    right_wheel.run_angle(speed=-500, rotation_angle=40)
-    # returning home
-    chassis.straight(500, then=Stop.NONE)
-    chassis.curve(radius=300, angle=45, then=Stop.NONE)
-
-    # left_arm.run_time(400,1000, wait=None)
-    # right_arm.run_time(750,800)
-    # right_arm.run_time(-750,1200)
-    # moving
-    # chassis.turn(26)
-    # right_arm.run_time(-790, 800)
-    # chassis.straight(20)
-    # right_arm.run_time(790, 800)
-
+    chassis.settings(1000)
+    chassis.straight(-800)
+    d_settings()
+    till_black(speed=-100, turn_rate=0)
+    chassis.straight(-280)
+    right_arm.run_time(speed=-1000, time=1000)
+    right_arm.run_time(speed=1000, time=1000)
+    chassis.straight(-300)
 
 def blue_run():
     while True:
