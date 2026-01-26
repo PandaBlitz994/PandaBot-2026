@@ -64,16 +64,19 @@ def wheels_cleaning():
         chassis.settings(1000, 1000)
         chassis.straight(10000)
 
+
 def breakpoint():
     while not Button.BLUETOOTH in hub.buttons.pressed():
         pass
     wait(250)
+
 
 def till_black(speed, turn_rate):
     chassis.drive(speed, turn_rate)
     while floor_color.reflection() > 11:
         print(floor_color.reflection())
     chassis.stop()
+
 
 # def straight_until_black(speed):
 #     chassis.drive(speed, 0)
@@ -105,7 +108,7 @@ def left_wheel_gyro(speed, gyro):
     current_gyro = int(hub.imu.heading())
     if current_gyro <= gyro:
         left_wheel.run(speed)
-        while int(hub.imu.heading()) < gyro: 
+        while int(hub.imu.heading()) < gyro:
             pass
         left_wheel.stop()
 
@@ -215,15 +218,32 @@ def yellow_run():
     # setup
     reset()
     right_arm.run_time(speed=1000, time=1000, wait=None)
-    # get on track
+    left_arm.run_time(speed=-500, time=1500)
+
+    # driving to tip the scales
     chassis.settings(1000)
     chassis.straight(-800)
     d_settings()
     till_black(speed=-100, turn_rate=0)
-    chassis.straight(-280)
-    right_arm.run_time(speed=-1000, time=1000)
-    right_arm.run_time(speed=1000, time=1000)
     chassis.straight(-300)
+    # tiping the scales
+    right_arm.run_time(speed=-1000, time=1000)
+    right_arm.run_time(speed=1000, time=2000)
+    # driving to what's on sale
+    chassis.straight(-400)
+    chassis.turn(45)
+    chassis.straight(300)
+    # discovering what's on sale
+    left_arm.run_time(speed=500, time=1500)
+    chassis.straight(-250)
+    left_arm.run_time(speed=-500, time=1000, wait=None)
+    chassis.straight(80)
+    chassis.straight(-150)
+    left_arm.run_time(speed=500, time=2000)
+    chassis.straight(50.0)
+    chassis.turn(-90)
+    chassis.straight(-500)
+
 
 def blue_run():
     while True:
@@ -268,7 +288,7 @@ def blue_run():
     # back home
     chassis.settings(straight_speed=-1000)
     chassis.straight(-1000)
-    
+
 
 def orange_run():
     # setup
