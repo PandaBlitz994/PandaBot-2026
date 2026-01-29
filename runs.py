@@ -168,81 +168,90 @@ def white_run():
     chassis.straight(200)
 
 
-def green_run():
+def black_run():
     # setup
     reset()
+    right_arm.run_time(speed=1000, time=1000, wait=None)
     left_arm.run_time(speed=-1000, time=1000, wait=None)
-    right_arm.run_time(speed=-1000, time=1000, wait=None)
     # getting there
     chassis.straight(500, then=Stop.NONE)
     chassis.curve(radius=200, angle=90)
     chassis.turn(90)
-    # mission 1
+    # straiting on the wall
     straight_time(speed=-200, time=1500)
     chassis.use_gyro(False)
     hub.imu.reset_heading(180)
     chassis.use_gyro(True)
-    chassis.settings(straight_speed=50)
+    # taking the trasure out
     chassis.straight(30)
-    d_settings()
-    turn_to(angle=90, turn_speed=50)
-    till_black(speed=50, turn_rate=0)
-    chassis.straight(20)
-    left_arm.run_time(speed=500, time=1500)
-    # mission 2
+    chassis.turn(-90)
+    chassis.straight(70)
+    left_arm.run_time(speed=1000, time=1000)
+    chassis.straight(70)
+    left_arm.run_time(speed=-1000, time=1000)
+    # going to the whale and droping the tresure
     chassis.straight(-120)
     chassis.turn(45)
-    chassis.straight(340)
+    chassis.straight(280)
     chassis.turn(60)
-    left_arm.run_until_stalled(-1000)
-    left_arm.run_angle(speed=1000, rotation_angle=50)
-    left_arm.run_until_stalled(-1000)
-    # mission 3
+    left_arm.run_until_stalled(1000)
+    # whale
     turn_to(angle=90, turn_speed=100)
-    right_arm.run_time(speed=1000, time=1000)
-    chassis.straight(60)
-    chassis.turn(-45)
-    right_arm.run_time(speed=-500, time=1000, wait=None)
-    chassis.settings(150)
     chassis.straight(100)
-    wait(500)
-    d_settings()
-    # returning home
-    turn_to(angle=90, turn_speed=200)
+    right_arm.run_time(speed=-1000, time=1000)
+    chassis.straight(40)
+    left_wheel_gyro(speed=200, gyro=45)
+    right_arm.run_time(speed=1000, time=1000)
+    right_arm.run_time(speed=1000, time=4000, wait=None)
+    chassis.straight(-80)
+    chassis.straight(80)
+    wait(200)
+    # reterning home
+    left_wheel_gyro(speed=200, gyro=90)
     chassis.straight(-250, then=Stop.NONE)
     chassis.curve(radius=-200, angle=90)
     chassis.straight(-600)
+    # chassis.settings(150)
+    # chassis.straight(100)
+    # wait(500)
+    # d_settings()
+    # # returning home
+    # turn_to(angle=90, turn_speed=200)
+    # chassis.straight(-250, then=Stop.NONE)
+    # chassis.curve(radius=-200, angle=90)
+    # chassis.straight(-600)
 
 
 def yellow_run():
     # setup
     reset()
     right_arm.run_time(speed=1000, time=1000, wait=None)
-    left_arm.run_time(speed=-500, time=1500)
-
+    left_arm.run_until_stalled(-1000)
+    right_arm.run_angle(speed=-1000, rotation_angle=150, wait=None)
     # driving to tip the scales
     chassis.settings(1000)
     chassis.straight(-800)
     d_settings()
     till_black(speed=-100, turn_rate=0)
-    chassis.straight(-300)
+    right_arm.run_time(speed=1000, time=500, wait=None)
+    chassis.straight(-280)
     # tiping the scales
-    right_arm.run_time(speed=-1000, time=1000)
+    right_arm.run_time(speed=-1000, time=2000)
     right_arm.run_time(speed=1000, time=2000)
     # driving to what's on sale
     chassis.straight(-400)
     chassis.turn(45)
-    chassis.straight(300)
     # discovering what's on sale
-    left_arm.run_time(speed=500, time=1500)
-    chassis.straight(-250)
+    right_arm.run_time(speed=-1000, time=1000, wait=None)
+    chassis.straight(300)
+    left_arm.run_until_stalled(500)
+    chassis.straight(-30)
+    right_arm.run_time(speed=1000, time=2000)
+    chassis.straight(-200)
     left_arm.run_time(speed=-500, time=1000, wait=None)
     chassis.straight(80)
-    chassis.straight(-150)
-    left_arm.run_time(speed=500, time=2000)
-    chassis.straight(50.0)
-    chassis.turn(-90)
-    chassis.straight(-500)
+    left_arm.run_until_stalled(-1000)
+    chassis.straight(-400)
 
 
 def blue_run():
@@ -309,10 +318,10 @@ def orange_run():
 
 runs = [
     (Color.WHITE, white_run, 1),
-    (Color.GREEN, green_run, 2),
-    (Color.YELLOW, yellow_run, 3),
-    (Color.BLUE, blue_run, 45),
-    (Color.ORANGE, orange_run, 6),
+    (Color.BLACK, black_run, 2),
+    (Color.ORANGE, orange_run, 3),
+    (Color.YELLOW, yellow_run, 4),
+    (Color.BLUE, blue_run, 56),
     (Color.NONE, wheels_cleaning, 0),
 ]
 
