@@ -144,22 +144,23 @@ def white_run():
     right_arm.run_time(-1000, 1000, wait=None)
     left_arm.run_time(-1000, 1000)
     left_arm.run_angle(speed=700, rotation_angle=150, wait=None)
-    # mission 1
+    # going to the brush
     chassis.straight(670)
     chassis.straight(-170)
     chassis.straight(75)
-    left_arm.run_time(700, 1500)
-    # mission 2
+    left_arm.run_time(700, 1500)# pulling the brush
+    # going to MO2
     chassis.turn(30)
     chassis.straight(170)
     chassis.turn(-75)
-    chassis.straight(200)
-    # mission 3
+    chassis.straight(200)#revealing the map
+    # going to MO3
     right_arm.run_time(speed=700, time=1000, wait=None)
     chassis.straight(-40)
     chassis.curve(radius=-300, angle=45)
     chassis.straight(-230)
-    right_arm.run_time(-700, 1000)
+    left_arm.run_time(-1000, 1000, wait=None)#relesing the brush
+    right_arm.run_time(-700, 1000)#doing the mission
     # return home
     chassis.straight(170, then=Stop.NONE)
     chassis.curve(radius=200, angle=-80, then=Stop.NONE)
@@ -197,10 +198,11 @@ def black_run():
     left_arm.run_until_stalled(1000)
     # whale
     turn_to(angle=90, turn_speed=100)
-    chassis.straight(100)
+    chassis.straight(130)
     right_arm.run_time(speed=-1000, time=1000)
-    chassis.straight(40)
+    chassis.straight(30)
     left_wheel_gyro(speed=200, gyro=45)
+    # lifting it
     right_arm.run_time(speed=1000, time=1000)
     right_arm.run_time(speed=1000, time=4000, wait=None)
     chassis.straight(-80)
@@ -211,15 +213,6 @@ def black_run():
     chassis.straight(-250, then=Stop.NONE)
     chassis.curve(radius=-200, angle=90)
     chassis.straight(-600)
-    # chassis.settings(150)
-    # chassis.straight(100)
-    # wait(500)
-    # d_settings()
-    # # returning home
-    # turn_to(angle=90, turn_speed=200)
-    # chassis.straight(-250, then=Stop.NONE)
-    # chassis.curve(radius=-200, angle=90)
-    # chassis.straight(-600)
 
 
 def yellow_run():
