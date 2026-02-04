@@ -8,52 +8,47 @@ from pybricks.tools import hub_menu
 
 # Declaring ports
 hub = PrimeHub()
-left_wheel = Motor(Port.A, Direction.COUNTERCLOCKWISE)  # Cyan
-right_wheel = Motor(Port.E)  # red
-left_arm = Motor(Port.B)  # purple
-right_arm = Motor(Port.F)  # blue
-run_color = ColorSensor(Port.D)  # Yellow
-floor_color = ColorSensor(Port.C)  # Green
+left_wheel = Motor(Port.A, Direction.COUNTERCLOCKWISE)  # Cyan cable
+right_wheel = Motor(Port.E)  # Red cable
+left_arm = Motor(Port.B)  # Rurple cable
+right_arm = Motor(Port.F)  # Blue cable
+run_color_sensor = ColorSensor(Port.D)  # Yellow cable
+floor_color_sensor = ColorSensor(Port.C)  # Green cable
 
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 81)
 chassis.use_gyro(True)
 
-
-# default:
-def d_settings():
+def reset_drive_settings():
+    """resets to the default speed, acceleration and turn rate"""
     chassis.settings(straight_speed=500, straight_acceleration=500, turn_rate=150, turn_acceleration=750)
 
-
 def reset():
+    """restets the gyro angle, drive settings"""
     hub.imu.reset_heading(0)
-    d_settings()
-
-
-reset()
-
+    reset_drive_settings()
 
 # reflection color
-Color.WHITE = Color(h=0, s=0, v=100)
-Color.RED = Color(h=352, s=92, v=75)
-Color.BLUE = Color(h=218, s=94, v=72)
-Color.GREEN = Color(h=96, s=67, v=88)
-Color.YELLOW = Color(h=40, s=70, v=100)
-Color.BLACK = Color(h=200, s=20, v=19)
-Color.ORANGE = Color(h=7, s=86, v=99) 
-Color.NONE = Color(h=180, s=32, v=7)
-Color.MAGENTA = Color(h=240, s=100, v=100)  # this is floor black not magenta
+WHITE = Color(h=0, s=0, v=100)
+RED = Color(h=352, s=92, v=75)
+BLUE = Color(h=218, s=94, v=72)
+GREEN = Color(h=96, s=67, v=88)
+YELLOW = Color(h=40, s=70, v=100)
+BLACK = Color(h=200, s=20, v=19)
+ORANGE = Color(h=7, s=86, v=99) 
+NO_COLOR = Color(h=180, s=32, v=7)
+FLOOR_BLACK = Color(h=240, s=100, v=100)
 
-run_color.detectable_colors(
+run_color_sensor.detectable_colors(
     [
-        Color.WHITE,
-        Color.RED,
-        Color.BLUE,
-        Color.GREEN,
-        Color.YELLOW,
-        Color.BLACK,
-        Color.ORANGE,
-        Color.NONE,
-        Color.MAGENTA,  # this is floor black not magenta
+        WHITE,
+        RED,
+        BLUE,
+        GREEN,
+        YELLOW,
+        BLACK,
+        ORANGE,
+        NO_COLOR,
+        FLOOR_BLACK,  # this is floor black not magenta
     ]
 )
 
@@ -71,20 +66,11 @@ def breakpoint():
     wait(250)
 
 
-def till_black(speed, turn_rate):
+def drive_untill_black(speed, turn_rate):
     chassis.drive(speed, turn_rate)
-    while floor_color.reflection() > 11:
-        print(floor_color.reflection())
+    while floor_color_sensor.reflection() > 11:
+        print(floor_color_sensor.reflection())
     chassis.stop()
-
-
-# def straight_until_black(speed):
-#     chassis.drive(speed, 0)
-#     while True:
-#         print(floor_color.color())
-#         if floor_color.color() == Color.MAGENTA:#this is floor black not magenta
-#             chassis.stop()
-#             break
 
 
 def right_wheel_gyro(speed, gyro):
@@ -117,7 +103,6 @@ def left_wheel_gyro(speed, gyro):
         while int(hub.imu.heading()) > gyro:
             pass
         left_wheel.stop()
-
 
 def straight_time(speed, time):
     """speed: Number, mm/s
@@ -224,8 +209,8 @@ def yellow_run():
     # driving to tip the scales
     chassis.settings(1000)
     chassis.straight(-800)
-    d_settings()
-    till_black(speed=-100, turn_rate=0)
+    reset_drive_settings()
+    drive_untill_black(speed=-100, turn_rate=0)
     right_arm.run_time(speed=1000, time=500, wait=None)
     chassis.straight(-280)
     # tiping the scales
@@ -252,52 +237,40 @@ def yellow_run():
     chassis.straight(30)
 
 def blue_run():
+    # waiting for a button press
     while True:
         pressed = hub.buttons.pressed()
-        if (
-            Button.RIGHT in pressed
-            or Button.LEFT in pressed
-            or Button.BLUETOOTH in pressed
-        ):
+        if pressed:
             break
 
+    # pushing vrum-vrum car
     if Button.BLUETOOTH in pressed:
-        # pushing vrum-vrum car
         straight_time(-500, 1000)
         chassis.straight(100)
         chassis.use_gyro(False)
 
-    # run switching
-    while True:
-        pressed = hub.buttons.pressed()
-        if Button.RIGHT in pressed or Button.LEFT in pressed:
-            chassis.use_gyro(True)
-            break
-
-    # run_4
-    # setup
-    reset()
-    right_arm.run_time(speed=-500, time=1000, wait=None)
-    left_arm.run_time(speed=-500, time=1000)
-    left_arm.run_angle(speed=200, rotation_angle=170, wait=None)
-    # mission 1 - mamgora
-    chassis.straight(420)
-    for i in range(4):
-        right_arm.run_time(speed=500, time=1000)
-        right_arm.run_time(speed=-800, time=900)
-    # mission 2 - napachia
-    # till_black(speed=200, turn_rate=0)
-    straight_time(speed=200, time=2500)
-    # mission 3 - who lived here?
-    left_arm.run_time(speed=1000, time=1500)
-    left_arm.run_time(speed=-1000, time=1000)
-    # back home
-    chassis.settings(straight_speed=-1000)
-    chassis.straight(-1000)
+    else: 
+        # setup
+        reset()
+        right_arm.run_time(speed=-500, time=1000, wait=None)
+        left_arm.run_time(speed=-500, time=1000)
+        left_arm.run_angle(speed=200, rotation_angle=170, wait=None)
+        # mission 1 - mamgora
+        chassis.straight(420)
+        for i in range(4):
+            right_arm.run_time(speed=500, time=1000)
+            right_arm.run_time(speed=-800, time=900)
+        # mission 2 - napachia
+        straight_time(speed=200, time=2500)
+        # mission 3 - who lived here?
+        left_arm.run_time(speed=1000, time=1500)
+        left_arm.run_time(speed=-1000, time=1000)
+        # back home
+        chassis.settings(straight_speed=-1000)
+        chassis.straight(-1000)
 
 
 def orange_run():
-    # setup
     reset()
     # the juice
     chassis.straight(650)
@@ -308,31 +281,26 @@ def orange_run():
     wait(2000)
     # returning home
     left_arm.run_time(speed=-1000, time=2000, wait=None)
-    # wait(500)
     chassis.straight(-650)
 
 
-# while True:
-#     pressed = ""
-#     pressed = hub.buttons.pressed()
-#     if Button.RIGHT in pressed:
-#         print(run_color.hsv())
+reset()
 
 runs = [
-    (Color.WHITE, white_run, 1),
-    (Color.BLACK, black_run, 2),
-    (Color.ORANGE, orange_run, 3),
-    (Color.YELLOW, yellow_run, 4),
-    (Color.BLUE, blue_run, 56),
-    (Color.NONE, wheels_cleaning, 0),
-]
+    (WHITE, white_run, 1),
+    (BLACK, black_run, 2),
+    (ORANGE, orange_run, 3),
+    (YELLOW, yellow_run, 4),
+    (BLUE, blue_run, 56),
+    (NO_COLOR, wheels_cleaning, 0),
+] # for each run: attachment color, run function, run number (for display)
 
-ran = False
-while not ran:
+finished = False
+while not finished:
     for run in runs:
-        if run_color.color() == run[0]:
-            ran = True
-            hub.display.number(run[2])
-            hub.light.on(run[0])
-            run[1]()
+        if run_color_sensor.color() == run[0]: 
+            finished = True
+            hub.display.number(run[2]) # Display run number on the matrix (screen)
+            hub.light.on(run[0])  # Change the button light color to the run color
+            run[1]() # Run the run funciton
             break
