@@ -292,7 +292,7 @@ def orange_run():
     # setup
     reset()
     # the juice
-    straight_time(speed=300, time=2500, turn_rate=15)
+    straight_time(speed=300, time=2500, turn_rate=5)
     wait(500)
     print(chassis.distance())
     chassis.straight(-30)
@@ -302,25 +302,41 @@ def orange_run():
     left_arm.run_time(speed=500, time=1500, wait=None)
     straight_time(speed=300, time=3000)
     # returning home
-    left_arm.run_time(speed=-1000, time=3000, wait=None)
+    left_arm.run_time(speed=-1000, time=4000, wait=None) #TODO: wait is boolean it should we wait=False
+
     chassis.straight(-650)
+    left_arm.run_time(speed=-1500, time=4000) 
 
 
-def green_run():
+def green_run(): #matcha
     # setup
     reset()
-    right_arm.run_time(speed=1800, time=750, wait=None)
-    left_arm.run_time(speed=-1000, time=500)
-    #going to the statue
-    chassis.curve(radius=1580, angle=35)
-    chassis.turn(15)
-    chassis.straight(78.5)
-    # doing the mission
-    right_arm.run_time(speed=-400, time=1000)
-    right_arm.run_time(speed=400, time=1000)
-    #opening the box :)
-    chassis.straight(25)
-    left_arm.run_time(speed=1000, time=500)
+    left_arm.run_time(speed=-500, time=1500, wait=None)
+    right_arm.run_time(speed=-500, time=1500, wait=None)
+    # drive to flag
+    chassis.straight(distance=100, then=Stop.NONE)
+    chassis.curve(radius=200, angle=-30)
+    chassis.straight(distance=340, then=Stop.NONE)
+    chassis.curve(radius=300, angle=-60)
+    #drop flag
+    chassis.straight(distance=150)
+    right_arm.run_time(speed=100, time=3000)
+    right_arm.run_time(speed=-300, time=1000)
+
+    # go to forum
+    chassis.straight(distance=530)
+    left_arm.run_time(speed=500, time=1500)
+    chassis.turn(-50)
+    left_arm.run_time(speed=-1000, time=2000) # lifting the whale
+
+    # chassis.straight(distance=80)
+    # chassis.curve(radius=25, angle=-69)
+    # chassis.straight(distance=60)
+    #chassis.straight(distance=200)
+
+    # lift the seal
+    #left_arm.run_time(speed=-800, time=2000)
+
 
 
 def run_none():
