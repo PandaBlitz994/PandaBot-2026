@@ -320,12 +320,12 @@ def green_run(): #matcha
     chassis.curve(radius=300, angle=-60)
     #drop flag
     chassis.straight(distance=150)
-    right_arm.run_time(speed=100, time=3000)
+    right_arm.run_time(speed=100, time=3000) 
     right_arm.run_time(speed=-300, time=1000)
 
     # go to forum
-    chassis.straight(distance=530)
-    left_arm.run_time(speed=500, time=1500)
+    chassis.straight(distance=530) 
+    left_arm.run_time(speed=500, time=1500) 
     chassis.turn(-50)
     left_arm.run_time(speed=-1000, time=2000) # lifting the whale
 
@@ -352,8 +352,8 @@ def run_none():
 
 
 runs = [
-    (WHITE, white_run, 1, "WHITE"),
-    (BLACK, black_run, 2, "BLACK"),
+    (BLACK, black_run, 1, "BLACK"),
+    (WHITE, white_run, 2, "WHITE"),
     (ORANGE, orange_run, 3, "ORANGE"),
     (YELLOW, yellow_run, 4, "YELLOW"),
     (BLUE, blue_run, 56, "BLUE"),
