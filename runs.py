@@ -277,15 +277,9 @@ def blue_run():
         # mission 3 - who lived here?
         left_arm.run_time(speed=1200, time=1500)
         left_arm.run_time(speed=-1200, time=1000)
-        chassis.straight(-80)
-        turn_to(-90)
-        chassis.straight(-230)
-        # chassis.straight(200, then=Stop.NONE)
-        chassis.curve(radius=150, angle=-90, then=Stop.NONE)
-        chassis.straight(600)
         # back home
-        # chassis.settings(straight_speed=-1000)
-    # chassis.straight(-1000)
+        chassis.settings(straight_speed=1000)
+        chassis.straight(-1000)
 
 
 def orange_run():
