@@ -379,5 +379,4 @@ while not finished:
             print("BAT_percent:", f"{check_battery_percent()}%")
             timer.reset()
             run[1]()  # Run the run funciton
-            print("Run time:", f"{get_time()}s", f"{run[3]}_run")
             break
