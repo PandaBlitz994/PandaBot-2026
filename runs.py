@@ -360,14 +360,14 @@ def run_none():
 
 
 runs = [
-    (BLACK, black_run, 1, "BLACK"),
-    (WHITE, white_run, 2, "WHITE"),
-    (ORANGE, orange_run, 3, "ORANGE"),
-    (YELLOW, yellow_run, 4, "YELLOW"),
-    (BLUE, blue_run, 56, "BLUE"),
-    (GREEN, green_run, 7, "GREEN"),
-    (NO_COLOR, run_none, 0, "NO_COLOR"),
-]  # for each run: attachment color, run function, run number (for display), color name
+    (BLACK, black_run, 1),
+    (WHITE, white_run, 2),
+    (ORANGE, orange_run, 3),
+    (YELLOW, yellow_run, 4),
+    (BLUE, blue_run, 56),
+    (GREEN, green_run, 7),
+    (NO_COLOR, run_none, 0),
+]  # for each run: attachment color, run function, run number (for display)
 
 finished = False
 while not finished:
