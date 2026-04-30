@@ -315,14 +315,29 @@ def green_run(): #matcha
     #drop flag
     chassis.straight(distance=150)
     right_arm.run_time(speed=100, time=3000) 
-    right_arm.run_time(speed=-100, time=3000,wait=None)
+    right_arm.run_time(speed=-130, time=1000)
+    chassis.straight(-120)
+    right_arm.run_until_stalled(-500)
     wait(1500)
 
     # go to forum
-    chassis.straight(distance=530) 
+    chassis.straight(distance=650) 
+    chassis.turn(-20)
+    chassis.straight(40)
     left_arm.run_until_stalled(1000)
-    chassis.turn(-50)
+    chassis.turn(-32)
+    chassis.straight(-10)
     left_arm.run_time(speed=-500, time=2500) # lifting the whale
+    chassis.settings(straight_speed=100)
+    chassis.turn(-5)
+    chassis.straight(200)
+    left_arm.run_time(-300,200)
+    reset_drive_settings()
+    chassis.straight(-200)
+    
+
+
+
 
     # party time!!!
     turn_to(-90)
