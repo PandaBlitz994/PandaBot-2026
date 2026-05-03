@@ -283,23 +283,25 @@ def blue_run():
 
 
 def orange_run():
-    # setup
-    reset()
-    # the juice
-    straight_time(speed=300, time=2500, turn_rate=5)
-    wait(500)
-    print(chassis.distance())
-    chassis.straight(-30)
-    print(chassis.distance())
-    right_arm.run(-1000)
-    left_arm.run_time(speed=1000, time=2000)
-    left_arm.run_time(speed=500, time=1500, wait=None)
-    straight_time(speed=300, time=3000)
-    # returning home
-    left_arm.run_time(speed=-1000, time=4000, wait=None) #TODO: wait is boolean it should we wait=False
+    right_arm.run_time(speed=-1000, time=8000, wait=None)
+    left_arm.run_time(speed=10000, time=8000)
+    # # setup
+    # reset()
+    # # the juice
+    # straight_time(speed=300, time=2500, turn_rate=5)
+    # wait(500)
+    # print(chassis.distance())
+    # chassis.straight(-30)
+    # print(chassis.distance())
+    # right_arm.run(-1000)
+    # left_arm.run_time(speed=1000, time=2000)
+    # left_arm.run_time(speed=500, time=1500, wait=None)
+    # straight_time(speed=300, time=3000)
+    # # returning home
+    # left_arm.run_time(speed=-1000, time=4000, wait=None) #TODO: wait is boolean it should we wait=False
 
-    chassis.straight(-650)
-    left_arm.run_time(speed=-1500, time=4000) 
+    # chassis.straight(-650)
+    # left_arm.run_time(speed=-1500, time=4000) 
 
 
 def green_run(): #matcha
@@ -313,32 +315,21 @@ def green_run(): #matcha
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
     #drop flag
-    chassis.straight(distance=150)
-    right_arm.run_time(speed=100, time=3000) 
-    right_arm.run_time(speed=-130, time=1000)
-    chassis.straight(-120)
-    right_arm.run_until_stalled(-500)
+    chassis.straight(distance=180)
+    right_arm.run_time(speed=100, time=2700) # droping the flag
+    chassis.straight(100)
+    right_arm.run_time(speed=-130, time=1000, wait=None)
+    right_arm.run_until_stalled(-450)
     wait(1500)
 
     # go to forum
-    chassis.straight(distance=650) 
-    chassis.turn(-20)
-    chassis.straight(40)
+    chassis.straight(distance=400) 
+    turn_to(-135)
+    chassis.straight(100)
     left_arm.run_until_stalled(1000)
-    chassis.turn(-32)
-    chassis.straight(-10)
+    chassis.straight(-100)
     left_arm.run_time(speed=-500, time=2500) # lifting the whale
-    chassis.settings(straight_speed=100)
-    chassis.turn(-5)
-    chassis.straight(200)
-    left_arm.run_time(-300,200)
-    reset_drive_settings()
-    chassis.straight(-200)
     
-
-
-
-
     # party time!!!
     turn_to(-90)
     chassis.straight(-300)
