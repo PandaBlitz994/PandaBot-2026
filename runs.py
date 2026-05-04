@@ -5,7 +5,6 @@ from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 from pybricks.tools import hub_menu
 
-
 # Declaring ports
 hub = PrimeHub()
 left_wheel = Motor(Port.A, Direction.COUNTERCLOCKWISE)  # Cyan cable
@@ -277,50 +276,87 @@ def blue_run():
         # mission 3 - who lived here?
         left_arm.run_time(speed=1200, time=1500)
         left_arm.run_time(speed=-1200, time=1000)
-        chassis.straight(-80)
-        turn_to(-90)
-        chassis.straight(-230)
-        # chassis.straight(200, then=Stop.NONE)
-        chassis.curve(radius=150, angle=-90, then=Stop.NONE)
-        chassis.straight(600)
         # back home
-        # chassis.settings(straight_speed=-1000)
-    # chassis.straight(-1000)
+        chassis.settings(straight_speed=1000)
+        chassis.straight(-1000)
 
 
 def orange_run():
     # setup
     reset()
-    # the juice
-    straight_time(speed=300, time=2500, turn_rate=15)
+    right_arm.run_time(speed=-1000, time=500, wait=None)  # reseting the arm
+    left_arm.run_time(speed=-1000, time=500, wait=None)  # reseting the arm
+
+    # driving to the missions
+    straight_time(speed=300, time=2500, turn_rate=5)
     wait(500)
-    print(chassis.distance())
     chassis.straight(-30)
-    print(chassis.distance())
-    right_arm.run(-1000)
-    left_arm.run_time(speed=1000, time=2000)
-    left_arm.run_time(speed=500, time=1500, wait=None)
-    straight_time(speed=300, time=3000)
+
+    # fishing stuff
+    right_arm.run_time(speed=-1000, time=1000, wait=None)  # lowering the arm
+    left_arm.run_time(speed=-1000, time=1000)  # lowering the arm
+
+    right_arm.run_time(speed=-1000, time=2000, wait=None)  # spining the arm
+    left_arm.run_time(speed=1000, time=2000, wait=None)  # spinning the arm
+
+    straight_time(speed=300, time=2000)  # waiting for the fish to bite
+
+    right_arm.run_time(speed=-1000, time=3000, wait=None)  # spining the arm
+    left_arm.run_time(speed=1000, time=3000)  # spinning the arm
+
     # returning home
-    left_arm.run_time(speed=-1000, time=3000, wait=None)
+    right_arm.run_time(speed=1000, time=6000, wait=None)  # lifting the arm
+    left_arm.run_time(speed=1000, time=6000, wait=None)  # lifting the arm
     chassis.straight(-650)
+    left_arm.run_time(speed=-1500, time=4000)
 
 
-def green_run():
+def green_run():  # matcha
     # setup
     reset()
-    right_arm.run_time(speed=1800, time=750, wait=None)
-    left_arm.run_time(speed=-1000, time=500)
-    #going to the statue
-    chassis.curve(radius=1580, angle=35)
-    chassis.turn(15)
-    chassis.straight(78.5)
-    # doing the mission
-    right_arm.run_time(speed=-400, time=1000)
-    right_arm.run_time(speed=400, time=1000)
-    #opening the box :)
-    chassis.straight(25)
-    left_arm.run_time(speed=1000, time=500)
+    left_arm.run_time(speed=-500, time=1500, wait=None)
+    right_arm.run_time(speed=-500, time=1500, wait=None)
+    # drive to flag
+    chassis.straight(distance=100, then=Stop.NONE)
+    chassis.curve(radius=200, angle=-30)
+    chassis.straight(distance=340, then=Stop.NONE)
+    chassis.curve(radius=300, angle=-60)
+    # drop flag
+    chassis.straight(distance=180)
+    right_arm.run_time(speed=100, time=2700)  # droping the flag
+    chassis.straight(100)
+    right_arm.run_time(speed=-130, time=1000, wait=None)
+    right_arm.run_until_stalled(-450)
+    wait(1500)
+
+    # go to forum
+    chassis.straight(distance=400)
+    turn_to(-135)
+    chassis.straight(100)
+    left_arm.run_until_stalled(1000)
+    chassis.straight(-100)
+    left_arm.run_time(speed=-500, time=2500)  # lifting the whale
+
+    # party time!!!
+    turn_to(-90)
+    chassis.straight(-300)
+    while True:
+        right_arm.run_angle(speed=500, rotation_angle=100, wait=None)
+        left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
+        turn_to(30)
+        wait(500)
+        right_arm.run_angle(speed=-500, rotation_angle=100, wait=None)
+        left_arm.run_angle(speed=500, rotation_angle=200, wait=None)
+        turn_to(-30)
+        wait(500)
+
+    # chassis.straight(distance=80)
+    # chassis.curve(radius=25, angle=-69)
+    # chassis.straight(distance=60)
+    # chassis.straight(distance=200)
+
+    # lift the seal
+    # left_arm.run_time(speed=-800, time=2000)
 
 
 def run_none():
@@ -336,14 +372,14 @@ def run_none():
 
 
 runs = [
-    (WHITE, white_run, 1, "WHITE"),
-    (BLACK, black_run, 2, "BLACK"),
-    (ORANGE, orange_run, 3, "ORANGE"),
-    (YELLOW, yellow_run, 4, "YELLOW"),
-    (BLUE, blue_run, 56, "BLUE"),
-    (GREEN, green_run, 7, "GREEN"),
-    (NO_COLOR, run_none, 0, "NO_COLOR"),
-]  # for each run: attachment color, run function, run number (for display), color name
+    (BLACK, black_run, 1, "black run"),
+    (WHITE, white_run, 2, "white run"),
+    (ORANGE, orange_run, 3, "orange run"),
+    (YELLOW, yellow_run, 4, "yellow run"),
+    (BLUE, blue_run, 56, "blue+vroom vroom contingency"),
+    (GREEN, green_run, 7, "matcha run"),
+    (NO_COLOR, run_none, 0, "run straight"),
+]  # for each run: attachment color, run function, run number (for display)
 
 finished = False
 while not finished:
@@ -355,5 +391,4 @@ while not finished:
             print("BAT_percent:", f"{check_battery_percent()}%")
             timer.reset()
             run[1]()  # Run the run funciton
-            print("Run time:", f"{get_time()}s", f"{run[3]}_run")
             break
