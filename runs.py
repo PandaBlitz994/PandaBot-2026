@@ -285,30 +285,32 @@ def orange_run():
     # setup
     reset()
     right_arm.run_time(speed=-1000, time=500, wait=None)  # reseting the arm
-    left_arm.run_time(speed=-1000, time=500, wait=None)  # reseting the arm
+    left_arm.run_time(speed=1000, time=500, wait=None)  # reseting the arm
 
     # driving to the missions
     straight_time(speed=300, time=2500, turn_rate=5)
     wait(500)
+
+    right_arm.run_time(speed=500, time=1500, wait=None)  # lowering the arm
+    left_arm.run_time(speed=-500, time=1500, wait=None)  # lowering the arm
     chassis.straight(-30)
-
+    wait(500)
     # fishing stuff
-    right_arm.run_time(speed=-1000, time=1000, wait=None)  # lowering the arm
-    left_arm.run_time(speed=-1000, time=1000)  # lowering the arm
+    # right_arm.run_time(speed=500, time=1500, wait=None)  # lowering the arm
+    # left_arm.run_time(speed=-500, time=1500)  # lowering the arm
 
-    right_arm.run_time(speed=-1000, time=2000, wait=None)  # spining the arm
-    left_arm.run_time(speed=1000, time=2000, wait=None)  # spinning the arm
+    right_arm.run_time(speed=-1000, time=2500, wait=None)  # spining the arm
+    left_arm.run_time(speed=-1000, time=2500, wait=None)  # spinning the arm
 
-    straight_time(speed=300, time=2000)  # waiting for the fish to bite
+    straight_time(speed=300, time=2000)
 
-    right_arm.run_time(speed=-1000, time=3000, wait=None)  # spining the arm
-    left_arm.run_time(speed=1000, time=3000)  # spinning the arm
+    right_arm.run_time(speed=-1000, time=1000, wait=None)  # spining the arm
+    left_arm.run_time(speed=-1000, time=1000)  # spinning the arm
 
     # returning home
-    right_arm.run_time(speed=1000, time=6000, wait=None)  # lifting the arm
+    right_arm.run_time(speed=-1000, time=6000, wait=None)  # lifting the arm
     left_arm.run_time(speed=1000, time=6000, wait=None)  # lifting the arm
     chassis.straight(-650)
-    left_arm.run_time(speed=-1500, time=4000)
 
 
 def green_run():  # matcha
