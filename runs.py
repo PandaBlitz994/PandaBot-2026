@@ -283,25 +283,33 @@ def blue_run():
 
 
 def orange_run():
-    right_arm.run_time(speed=-1000, time=8000, wait=None)
-    left_arm.run_time(speed=10000, time=8000)
-    # # setup
-    # reset()
-    # # the juice
-    # straight_time(speed=300, time=2500, turn_rate=5)
-    # wait(500)
-    # print(chassis.distance())
-    # chassis.straight(-30)
-    # print(chassis.distance())
-    # right_arm.run(-1000)
-    # left_arm.run_time(speed=1000, time=2000)
-    # left_arm.run_time(speed=500, time=1500, wait=None)
-    # straight_time(speed=300, time=3000)
-    # # returning home
-    # left_arm.run_time(speed=-1000, time=4000, wait=None) #TODO: wait is boolean it should we wait=False
+    # setup
+    reset()
+    right_arm.run_time(speed=-1000, time=500, wait=None) # reseting the arm
+    left_arm.run_time(speed=-1000, time=500, wait=None) # reseting the arm
 
-    # chassis.straight(-650)
-    # left_arm.run_time(speed=-1500, time=4000) 
+    # driving to the missions
+    straight_time(speed=300, time=2500, turn_rate=5)
+    wait(500)
+    chassis.straight(-30)
+
+    # fishing stuff
+    right_arm.run_time(speed=-1000, time=1000, wait=None) # lowering the arm
+    left_arm.run_time(speed=-1000, time=1000) # lowering the arm
+
+    right_arm.run_time(speed=-1000, time=2000, wait=None) # spining the arm
+    left_arm.run_time(speed=1000, time=2000, wait=None) # spinning the arm
+
+    straight_time(speed=300, time=2000) # waiting for the fish to bite
+
+    right_arm.run_time(speed=-1000, time=3000, wait=None) # spining the arm
+    left_arm.run_time(speed=1000, time=3000) # spinning the arm
+
+    # returning home
+    right_arm.run_time(speed=1000, time=6000, wait=None) # lifting the arm
+    left_arm.run_time(speed=1000, time=6000, wait=None) # lifting the arm
+    chassis.straight(-650)
+    left_arm.run_time(speed=-1500, time=4000)
 
 
 def green_run(): #matcha
