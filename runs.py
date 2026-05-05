@@ -352,14 +352,6 @@ def green_run():  # matcha
         turn_to(-30)
         wait(500)
 
-    # chassis.straight(distance=80)
-    # chassis.curve(radius=25, angle=-69)
-    # chassis.straight(distance=60)
-    # chassis.straight(distance=200)
-
-    # lift the seal
-    # left_arm.run_time(speed=-800, time=2000)
-
 
 def run_none():
     while True:
