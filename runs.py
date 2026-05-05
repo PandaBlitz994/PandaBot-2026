@@ -1,4 +1,5 @@
 from pybricks.hubs import PrimeHub
+from pybricks.parameters import Icon
 from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
 from pybricks.parameters import Button, Color, Direction, Port, Side, Stop
 from pybricks.robotics import DriveBase
@@ -342,6 +343,7 @@ def green_run(): # matcha
 
 
     # # party time!!!
+    hub.display.icon(Icon.HEART)
     chassis.straight(-100, then=Stop.NONE)
     chassis.curve(radius=-250, angle=-45)
     while True:
