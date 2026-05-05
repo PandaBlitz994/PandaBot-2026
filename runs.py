@@ -91,7 +91,7 @@ def wheels_cleaning():
         wait(500)
 
 
-def wait_for_press():
+def breakpoint():
     while not Button.BLUETOOTH in hub.buttons.pressed():
         pass
     wait(250)
@@ -313,7 +313,7 @@ def orange_run():
     chassis.straight(-650)
 
 
-def green_run():  # matcha
+def green_run(): # matcha
     # setup
     reset()
     left_arm.run_time(speed=-500, time=1500, wait=None)
@@ -323,34 +323,30 @@ def green_run():  # matcha
     chassis.curve(radius=200, angle=-30)
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
+    chassis.straight(distance=150)
     # drop flag
-    chassis.straight(distance=180)
-    right_arm.run_time(speed=100, time=2700)  # droping the flag
-    chassis.straight(100)
-    right_arm.run_time(speed=-130, time=1000, wait=None)
-    right_arm.run_until_stalled(-450)
-    wait(1500)
+    right_arm.run_until_stalled(100)  # droping the flag
+    chassis.straight(100, then=Stop.NONE)
+    right_arm.run_time(speed=-1000, time=1000, wait=None)
 
     # go to forum
-    chassis.straight(distance=400)
-    turn_to(-135)
-    chassis.straight(100)
+    chassis.straight(distance=420)
+    turn_to(-140)
+    chassis.straight(200) # putting thing in the forum
     left_arm.run_until_stalled(1000)
-    chassis.straight(-100)
-    left_arm.run_time(speed=-500, time=2500)  # lifting the whale
+    left_arm.run_time(speed=500, time=1500, wait=None)
+    chassis.straight(-200)
+    left_arm.run_time(speed=-500, time=4000, wait=None)  # lifting the whale
+    wait(500)
+    chassis.straight(100)
 
-    # party time!!!
-    turn_to(-90)
-    chassis.straight(-300)
+
+    # # party time!!!
+    chassis.straight(-100, then=Stop.NONE)
+    chassis.curve(radius=-250, angle=-45)
     while True:
-        right_arm.run_angle(speed=500, rotation_angle=100, wait=None)
-        left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
-        turn_to(30)
-        wait(500)
-        right_arm.run_angle(speed=-500, rotation_angle=100, wait=None)
-        left_arm.run_angle(speed=500, rotation_angle=200, wait=None)
-        turn_to(-30)
-        wait(500)
+        left_arm.run_until_stalled(1000)
+        left_arm.run_until_stalled(-1000)
 
 
 def run_none():
