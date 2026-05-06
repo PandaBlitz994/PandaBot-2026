@@ -170,9 +170,11 @@ def white_run():
     left_arm.run_time(700, 1500)  # pulling the brush
     # going to MO2
     chassis.turn(30)
-    chassis.straight(160)
-    chassis.turn(-75)
-    straight_time(speed=600, time=2000)  # revealing the map
+    chassis.straight(200)
+    turn_to(-50)
+    chassis.use_gyro(False)
+    straight_time(speed=300, time=3000, turn_rate=15)  # revealing the map
+    chassis.use_gyro(True)
     # returning home and placing a flag
     chassis.straight(-100)
     turn_to(0)
@@ -335,18 +337,17 @@ def green_run():  # matcha
     # drop flag
     right_arm.run_until_stalled(100)  # droping the flag
     chassis.straight(100, then=Stop.NONE)
-    right_arm.run_time(speed=-1000, time=1000, wait=None)
+    right_arm.run_time(speed=-700, time=1000, wait=None)
 
     # go to forum
     chassis.straight(distance=420)
     turn_to(-140)
-    chassis.straight(200)  # putting thing in the forum
+    chassis.straight(100)  # putting thing in the forum
     left_arm.run_until_stalled(1000)
+    left_arm.run_time(speed=-100, time=100)
     left_arm.run_time(speed=500, time=1500, wait=None)
-    chassis.straight(-200)
-    left_arm.run_time(speed=-500, time=4000, wait=None)  # lifting the whale
-    wait(500)
-    chassis.straight(100)
+    chassis.straight(-70)
+    left_arm.run_time(speed=-500, time=2000)  # lifting the whale
 
     # # party time!!!
     hub.display.icon(Icon.HEART)
