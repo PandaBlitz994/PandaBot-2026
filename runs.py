@@ -188,16 +188,20 @@ def black_run():
     chassis.settings(straight_acceleration=1000)
     left_arm.run_time(speed=1000, time=1000, wait=None)  # reseting elevator
     right_arm.run_time(speed=-1000, time=1000, wait=None)  # reseting the other arm
+
     # getting there
     chassis.straight(500, then=Stop.NONE)
     chassis.curve(radius=450, angle=45)
     right_arm.run_time(speed=1000, time=1000, wait=None)  # lowering the arm
     right_wheel_gyro(speed=150, gyro=0)
     straight_time(speed=500, time=1000)  # making shure we are at the right place
+
     # doing the missions
     right_arm.run_time(speed=-1000, time=5000, wait=None)  # transferring the minecart
+    hub.display.icon(Icon.TRUE)
     left_arm.run_time(speed=-500, time=2000)
     left_arm.run_time(speed=300, time=2500)  # collecting the high vlue item
+
     # returning home
     chassis.straight(-50, then=Stop.NONE)
     chassis.curve(radius=-100, angle=-45)
@@ -314,7 +318,7 @@ def orange_run():
     chassis.straight(-650)
 
 
-def green_run(): # matcha
+def green_run():  # matcha
     # setup
     reset()
     left_arm.run_time(speed=-500, time=1500, wait=None)
@@ -333,14 +337,13 @@ def green_run(): # matcha
     # go to forum
     chassis.straight(distance=420)
     turn_to(-140)
-    chassis.straight(200) # putting thing in the forum
+    chassis.straight(200)  # putting thing in the forum
     left_arm.run_until_stalled(1000)
     left_arm.run_time(speed=500, time=1500, wait=None)
     chassis.straight(-200)
     left_arm.run_time(speed=-500, time=4000, wait=None)  # lifting the whale
     wait(500)
     chassis.straight(100)
-
 
     # # party time!!!
     hub.display.icon(Icon.HEART)
