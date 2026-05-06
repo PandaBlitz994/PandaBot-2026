@@ -194,13 +194,16 @@ def black_run():
     chassis.curve(radius=450, angle=45)
     right_arm.run_time(speed=1000, time=1000, wait=None)  # lowering the arm
     right_wheel_gyro(speed=150, gyro=0)
-    straight_time(speed=500, time=1000)  # making shure we are at the right place
+    straight_time(speed=500, time=1000)  # making shur we are at the right place
 
     # doing the missions
     right_arm.run_time(speed=-1000, time=5000, wait=None)  # transferring the minecart
-    hub.display.icon(Icon.TRUE)
     left_arm.run_time(speed=-500, time=2000)
-    left_arm.run_time(speed=300, time=2500)  # collecting the high vlue item
+    hub.display.icon(Icon.TRUE)
+    left_arm.run_time(speed=300, time=2500, wait=None)  # collecting the high vlue item
+    wait(850)
+    hub.display.icon(Icon.HAPPY)
+    wait(2500 - 850)
 
     # returning home
     chassis.straight(-50, then=Stop.NONE)
