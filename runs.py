@@ -170,10 +170,10 @@ def white_run():
     left_arm.run_time(700, 1500)  # pulling the brush
     # going to MO2
     chassis.turn(30)
-    chassis.straight(200)
-    turn_to(-50)
+    chassis.straight(150)
+    turn_to(-35)
     chassis.use_gyro(False)
-    straight_time(speed=300, time=3000, turn_rate=15)  # revealing the map
+    straight_time(speed=300, time=3000)  # revealing the map
     chassis.use_gyro(True)
     # returning home and placing a flag
     chassis.straight(-100)
@@ -203,9 +203,10 @@ def black_run():
     left_arm.run_time(speed=-500, time=2000)
     hub.display.icon(Icon.TRUE)
     left_arm.run_time(speed=300, time=2500, wait=None)  # collecting the high vlue item
-    wait(850)
+    hub.display.icon(Icon.TRUE)
+    wait(1000)
     hub.display.icon(Icon.HAPPY)
-    wait(2500 - 850)
+    wait(1500)
 
     # returning home
     chassis.straight(-50, then=Stop.NONE)
@@ -336,23 +337,26 @@ def green_run():  # matcha
     chassis.straight(distance=150)
     # drop flag
     right_arm.run_until_stalled(100)  # droping the flag
+    hub.display.icon(Icon.TRUE) # misssion accomplished
     chassis.straight(100, then=Stop.NONE)
     right_arm.run_time(speed=-700, time=1000, wait=None)
 
     # go to forum
     chassis.straight(distance=420)
+    hub.display.number(run[2]) # reterning the number 
     turn_to(-140)
-    chassis.straight(100)  # putting thing in the forum
+    chassis.straight(200)  # putting thing in the forum
+    chassis.straight(-100)
     left_arm.run_until_stalled(1000)
     left_arm.run_time(speed=-100, time=100)
-    left_arm.run_time(speed=500, time=1500, wait=None)
-    chassis.straight(-70)
+    chassis.straight(-50)
     left_arm.run_time(speed=-500, time=2000)  # lifting the whale
+    hub.display.icon(Icon.TRUE) # misssion accomplished
 
     # # party time!!!
-    hub.display.icon(Icon.HEART)
     chassis.straight(-100, then=Stop.NONE)
     chassis.curve(radius=-250, angle=-45)
+    hub.display.icon(Icon.HEART)
     while True:
         left_arm.run_until_stalled(1000)
         left_arm.run_until_stalled(-1000)
