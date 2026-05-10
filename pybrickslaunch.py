@@ -1,6 +1,6 @@
 HUB_NAME = "PandaBoi"
 
-import os 
+import os
 import subprocess
 
 target = os.getenv("TARGET")
@@ -10,5 +10,6 @@ try:
     subprocess.run(command, shell=True, check=True)
 except subprocess.CalledProcessError:
     print("Error uploading code to hub")
-    print("Make sure to set HUB_NAME and turn the hub on")
-    
+    print(
+        "Make sure to:\n- set HUB_NAME\n- turn the hub on\n- turn on bluetooth on your laptop"
+    )

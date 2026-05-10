@@ -1,10 +1,10 @@
 from pybricks.hubs import PrimeHub
+from pybricks.parameters import Icon
 from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
 from pybricks.parameters import Button, Color, Direction, Port, Side, Stop
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 from pybricks.tools import hub_menu
-
 
 # Declaring ports
 hub = PrimeHub()
@@ -92,7 +92,7 @@ def wheels_cleaning():
         wait(500)
 
 
-def wait_for_press():
+def breakpoint():
     while not Button.BLUETOOTH in hub.buttons.pressed():
         pass
     wait(250)
@@ -170,9 +170,11 @@ def white_run():
     left_arm.run_time(700, 1500)  # pulling the brush
     # going to MO2
     chassis.turn(30)
-    chassis.straight(160)
-    chassis.turn(-75)
-    straight_time(speed=600, time=2000)  # revealing the map
+    chassis.straight(150)
+    turn_to(-35)
+    chassis.use_gyro(False)
+    straight_time(speed=300, time=3000)  # revealing the map
+    chassis.use_gyro(True)
     # returning home and placing a flag
     chassis.straight(-100)
     turn_to(0)
@@ -188,16 +190,24 @@ def black_run():
     chassis.settings(straight_acceleration=1000)
     left_arm.run_time(speed=1000, time=1000, wait=None)  # reseting elevator
     right_arm.run_time(speed=-1000, time=1000, wait=None)  # reseting the other arm
+
     # getting there
     chassis.straight(500, then=Stop.NONE)
     chassis.curve(radius=450, angle=45)
     right_arm.run_time(speed=1000, time=1000, wait=None)  # lowering the arm
     right_wheel_gyro(speed=150, gyro=0)
-    straight_time(speed=500, time=1000)  # making shure we are at the right place
+    straight_time(speed=500, time=1000)  # making shur we are at the right place
+
     # doing the missions
     right_arm.run_time(speed=-1000, time=5000, wait=None)  # transferring the minecart
     left_arm.run_time(speed=-500, time=2000)
-    left_arm.run_time(speed=300, time=2500)  # collecting the high vlue item
+    hub.display.icon(Icon.TRUE)
+    left_arm.run_time(speed=300, time=2500, wait=None)  # collecting the high vlue item
+    hub.display.icon(Icon.TRUE)
+    wait(1000)
+    hub.display.icon(Icon.HAPPY)
+    wait(1500)
+
     # returning home
     chassis.straight(-50, then=Stop.NONE)
     chassis.curve(radius=-100, angle=-45)
@@ -285,29 +295,33 @@ def blue_run():
 def orange_run():
     # setup
     reset()
-    right_arm.run_time(speed=-1000, time=200, wait=None) # reseting the arm
-    left_arm.run_time(speed=-1000, time=200, wait=None) # reseting the arm
+    right_arm.run_time(speed=-1000, time=500, wait=None)  # reseting the arm
+    left_arm.run_time(speed=1000, time=500, wait=None)  # reseting the arm
 
     # driving to the missions
     straight_time(speed=300, time=2500, turn_rate=5)
     wait(500)
+
+    right_arm.run_time(speed=500, time=1500, wait=None)  # lowering the arm
+    left_arm.run_time(speed=-500, time=1500, wait=None)  # lowering the arm
     chassis.straight(-30)
-
+    wait(500)
     # fishing stuff
-    right_arm.run_time(speed=1000, time=2000, wait=None) # lowering the arm
-    left_arm.run_time(speed=1000, time=2000) # lowering the arm
+    # right_arm.run_time(speed=500, time=1500, wait=None)  # lowering the arm
+    # left_arm.run_time(speed=-500, time=1500)  # lowering the arm
 
-    right_arm.run_time(speed=-1000, time=2000, wait=None) # spining the arm
-    left_arm.run_time(speed=1000, time=2000, wait=None) # spinning the arm
-    straight_time(speed=300, time=2000) # waiting for the fish to bite
-    right_arm.run_time(speed=-1000, time=3000, wait=None) # spining the arm
-    left_arm.run_time(speed=1000, time=3000) # spinning the arm
+    right_arm.run_time(speed=-1000, time=2500, wait=None)  # spining the arm
+    left_arm.run_time(speed=-1000, time=2500, wait=None)  # spinning the arm
+
+    straight_time(speed=300, time=2000)
+
+    right_arm.run_time(speed=-1000, time=1000, wait=None)  # spining the arm
+    left_arm.run_time(speed=-1000, time=1000)  # spinning the arm
 
     # returning home
-    right_arm.run_time(speed=-1000, time=6000, wait=None) # lifting the arm
-    left_arm.run_time(speed=-1000, time=6000, wait=None) # lifting the arm
+    right_arm.run_time(speed=-1000, time=6000, wait=None)  # lifting the arm
+    left_arm.run_time(speed=1000, time=6000, wait=None)  # lifting the arm
     chassis.straight(-650)
-    left_arm.run_time(speed=-1500, time=4000)
 
 
 def green_run(): #matcha
@@ -356,7 +370,6 @@ def green_run(): #matcha
 
     # lift the seal
     #left_arm.run_time(speed=-800, time=2000)
-
 
 
 def run_none():
