@@ -285,8 +285,8 @@ def blue_run():
 def orange_run():
     # setup
     reset()
-    right_arm.run_time(speed=-1000, time=500, wait=None) # reseting the arm
-    left_arm.run_time(speed=-1000, time=500, wait=None) # reseting the arm
+    right_arm.run_time(speed=-1000, time=200, wait=None) # reseting the arm
+    left_arm.run_time(speed=-1000, time=200, wait=None) # reseting the arm
 
     # driving to the missions
     straight_time(speed=300, time=2500, turn_rate=5)
@@ -294,20 +294,18 @@ def orange_run():
     chassis.straight(-30)
 
     # fishing stuff
-    right_arm.run_time(speed=-1000, time=1000, wait=None) # lowering the arm
-    left_arm.run_time(speed=-1000, time=1000) # lowering the arm
+    right_arm.run_time(speed=1000, time=2000, wait=None) # lowering the arm
+    left_arm.run_time(speed=1000, time=2000) # lowering the arm
 
     right_arm.run_time(speed=-1000, time=2000, wait=None) # spining the arm
     left_arm.run_time(speed=1000, time=2000, wait=None) # spinning the arm
-
     straight_time(speed=300, time=2000) # waiting for the fish to bite
-
     right_arm.run_time(speed=-1000, time=3000, wait=None) # spining the arm
     left_arm.run_time(speed=1000, time=3000) # spinning the arm
 
     # returning home
-    right_arm.run_time(speed=1000, time=6000, wait=None) # lifting the arm
-    left_arm.run_time(speed=1000, time=6000, wait=None) # lifting the arm
+    right_arm.run_time(speed=-1000, time=6000, wait=None) # lifting the arm
+    left_arm.run_time(speed=-1000, time=6000, wait=None) # lifting the arm
     chassis.straight(-650)
     left_arm.run_time(speed=-1500, time=4000)
 
@@ -324,19 +322,19 @@ def green_run(): #matcha
     chassis.curve(radius=300, angle=-60)
     #drop flag
     chassis.straight(distance=180)
-    right_arm.run_time(speed=100, time=2700) # droping the flag
+    right_arm.run_time(speed=150, time=2700) # droping the flag
     chassis.straight(100)
-    right_arm.run_time(speed=-130, time=1000, wait=None)
+    right_arm.run_time(speed=-150, time=1000, wait=None)
     right_arm.run_until_stalled(-450)
     wait(1500)
 
     # go to forum
-    chassis.straight(distance=400) 
-    turn_to(-135)
-    chassis.straight(100)
+    chassis.straight(distance=390) 
     left_arm.run_until_stalled(1000)
-    chassis.straight(-100)
+    turn_to(-140)
     left_arm.run_time(speed=-500, time=2500) # lifting the whale
+    chassis.straight(200)
+    chassis.straight(-200)
     
     # party time!!!
     turn_to(-90)
