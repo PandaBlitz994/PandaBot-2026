@@ -343,14 +343,16 @@ def green_run(): #matcha
     wait(1500)
 
     # go to forum
-    chassis.straight(distance=390) 
-    left_arm.run_until_stalled(1000)
-    turn_to(-140)
-    left_arm.run_time(speed=-500, time=2500) # lifting the whale
+    chassis.straight(distance=410)
+    left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
+
+    turn_to(-150)
+    chassis.straight(distance=50)
+    left_arm.run_time(speed=-700, time=1000)
     chassis.straight(200)
     chassis.straight(-200)
     
-    # party time!!!
+    # party time!!!<3
     turn_to(-90)
     chassis.straight(-300)
     while True:
