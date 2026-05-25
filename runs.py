@@ -14,7 +14,6 @@ left_arm = Motor(Port.B)  # Rurple cable
 right_arm = Motor(Port.F)  # Blue cable
 run_color_sensor = ColorSensor(Port.D)  # Yellow cable
 floor_color_sensor = ColorSensor(Port.C)  # Green cable
-
 timer = StopWatch()
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 81)
 chassis.use_gyro(True)
@@ -302,8 +301,8 @@ def orange_run():
     straight_time(speed=300, time=2500, turn_rate=5)
     wait(500)
 
-    right_arm.run_time(speed=500, time=1500, wait=None)  # lowering the arm
-    left_arm.run_time(speed=-500, time=1500, wait=None)  # lowering the arm
+    right_arm.run_time(speed=500, time=1800, wait=None)  # lowering the arm
+    left_arm.run_time(speed=-500, time=1800, wait=None)  # lowering the arm
     chassis.straight(-30)
     wait(500)
     # fishing stuff
@@ -313,10 +312,10 @@ def orange_run():
     right_arm.run_time(speed=-1000, time=2500, wait=None)  # spining the arm
     left_arm.run_time(speed=-1000, time=2500, wait=None)  # spinning the arm
 
-    straight_time(speed=300, time=2000)
+    straight_time(speed=500, time=2000)
 
-    right_arm.run_time(speed=-1000, time=1000, wait=None)  # spining the arm
-    left_arm.run_time(speed=-1000, time=1000)  # spinning the arm
+    right_arm.run_time(speed=-1000, time=1200, wait=None)  # spining the arm
+    left_arm.run_time(speed=-1000, time=1200)  # spinning the arm
 
     # returning home
     right_arm.run_time(speed=-1000, time=6000, wait=None)  # lifting the arm
@@ -324,54 +323,95 @@ def orange_run():
     chassis.straight(-650)
 
 
-def green_run(): #matcha
+# def green_run(): #matcha
+#     # setup
+#     reset()
+#     left_arm.run_time(speed=-500, time=1500, wait=None)
+#     # drive to flag
+#     chassis.straight(distance=140, then=Stop.NONE)
+#     chassis.curve(radius=200, angle=-30)
+#     chassis.straight(distance=340, then=Stop.NONE)
+#     chassis.curve(radius=300, angle=-60)
+#     #drop flag
+#     chassis.straight(distance=210)
+#     right_arm.run_until_stalled(speed=-200) # droping the flag
+#     chassis.straight(100, then=Stop.NONE)
+#     right_arm.run_time(speed=300, time=1500)
+#     wait(1500)
+
+#     # go to forum
+#     chassis.straight(distance=50)
+#     left_arm.run_angle(speed=-500, rotation_angle=200, wait=None) # lifting the arm so it doesn't get stuck
+#     wait(500)
+#     breakpoint()
+#     chassis.curve(radius=300, angle=-90)
+#     turn_to(-150)
+#     chassis.straight(distance=50)
+#     left_arm.run_time(speed=-700, time=1000)
+#     chassis.straight(200)
+#     chassis.straight(-200)
+    
+#     # party time!!!<3
+#     turn_to(-90)
+#     chassis.straight(-300)
+#     while True:
+#         right_arm.run_angle(speed=500, rotation_angle=100, wait=None)
+#         left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
+#         turn_to(30)
+#         wait(500)
+#         right_arm.run_angle(speed=-500, rotation_angle=100, wait=None)
+#         left_arm.run_angle(speed=500, rotation_angle=200, wait=None)
+#         turn_to(-30)
+#         wait(500)
+
+#     # chassis.straight(distance=80)
+#     # chassis.curve(radius=25, angle=-69)
+#     # chassis.straight(distance=60)
+#     #chassis.straight(distance=200)
+
+#     # lift the seal
+#     #left_arm.run_time(speed=-800, time=2000)
+def green_run():  # matcha
     # setup
     reset()
     left_arm.run_time(speed=-500, time=1500, wait=None)
-    right_arm.run_time(speed=-500, time=1500, wait=None)
-    # drive to flag
-    chassis.straight(distance=100, then=Stop.NONE)
+    # drive to flag 
+    chassis.straight(distance=160, then=Stop.NONE)
     chassis.curve(radius=200, angle=-30)
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
-    #drop flag
-    chassis.straight(distance=180)
-    right_arm.run_time(speed=150, time=2700) # droping the flag
-    chassis.straight(100)
-    right_arm.run_time(speed=-150, time=1000, wait=None)
-    right_arm.run_until_stalled(-450)
-    wait(1500)
+    chassis.straight(distance=230)
+    # drop flag
+    right_arm.run_until_stalled(-100)  # droping the flag
+    hub.display.icon(Icon.TRUE) # misssion accomplished
+    chassis.straight(100, then=Stop.NONE)
+    right_arm.run_time(speed=700, time=1000, wait=None)
 
     # go to forum
-    chassis.straight(distance=410)
-    left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
+    chassis.straight(distance=300)
+    hub.display.number(run[2]) # reterning the number 
+    turn_to(-145)
 
-    turn_to(-150)
-    chassis.straight(distance=50)
-    left_arm.run_time(speed=-700, time=1000)
-    chassis.straight(200)
-    chassis.straight(-200)
-    
-    # party time!!!<3
-    turn_to(-90)
-    chassis.straight(-300)
+
+    chassis.straight(250)  # putting thing in the forum
+    chassis.straight(-75)
+    chassis.straight(30)
+    left_arm.run_until_stalled(1000)
+    left_arm.run_time(speed=-100, time=100)
+    left_arm.run_time(speed=500, time=1500, wait=None)
+    chassis.straight(-70)
+
+    left_arm.run_time(speed=-500, time=2000)  # lifting the whale
+    hub.display.icon(Icon.TRUE) # misssion accomplished
+
+    # # party time!!!
+    hub.display.icon(Icon.HEART)
+    chassis.straight(-100, then=Stop.NONE)
+    chassis.curve(radius=-250, angle=-45)
+    hub.display.icon(Icon.HEART)
     while True:
-        right_arm.run_angle(speed=500, rotation_angle=100, wait=None)
-        left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
-        turn_to(30)
-        wait(500)
-        right_arm.run_angle(speed=-500, rotation_angle=100, wait=None)
-        left_arm.run_angle(speed=500, rotation_angle=200, wait=None)
-        turn_to(-30)
-        wait(500)
-
-    # chassis.straight(distance=80)
-    # chassis.curve(radius=25, angle=-69)
-    # chassis.straight(distance=60)
-    #chassis.straight(distance=200)
-
-    # lift the seal
-    #left_arm.run_time(speed=-800, time=2000)
+        left_arm.run_until_stalled(1000)
+        left_arm.run_until_stalled(-1000)
 
 
 def run_none():
@@ -381,7 +421,11 @@ def run_none():
             break
 
     if Button.BLUETOOTH in pressed:
-        chassis.straight(650)
+        right_wheel.stop(Stop.COAST)
+        left_wheel.stop(Stop.COAST)
+        while True:            
+            pass
+
     else:
         wheels_cleaning()
 
