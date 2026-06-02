@@ -374,34 +374,31 @@ def orange_run():
 def green_run():  # matcha
     # setup
     reset()
-    left_arm.run_time(speed=-500, time=1500, wait=None)
+    left_arm.run_time(speed=-300, time=1500, wait=None)
     # drive to flag 
-    chassis.straight(distance=160, then=Stop.NONE)
+    chassis.straight(distance=120, then=Stop.NONE)
     chassis.curve(radius=200, angle=-30)
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
     chassis.straight(distance=230)
     # drop flag
-    right_arm.run_until_stalled(-100)  # droping the flag
+    right_arm.run_until_stalled(100)  # droping the flag
     hub.display.icon(Icon.TRUE) # misssion accomplished
     chassis.straight(100, then=Stop.NONE)
-    right_arm.run_time(speed=700, time=1000, wait=None)
+    right_arm.run_time(speed=-700, time=1000, wait=None)
 
     # go to forum
-    chassis.straight(distance=300)
+    chassis.straight(distance=350)
     hub.display.number(run[2]) # reterning the number 
-    turn_to(-145)
+    chassis.turn(-50)
 
-
-    chassis.straight(250)  # putting thing in the forum
-    chassis.straight(-75)
-    chassis.straight(30)
-    left_arm.run_until_stalled(1000)
-    left_arm.run_time(speed=-100, time=100)
-    left_arm.run_time(speed=500, time=1500, wait=None)
-    chassis.straight(-70)
-
-    left_arm.run_time(speed=-500, time=2000)  # lifting the whale
+    chassis.straight(250)
+    chassis.straight(-220)  # putting thing in the forum
+    chassis.turn(22)
+    
+    left_arm.run_time(speed=1000, time=1800)
+    left_arm.run_time(speed=-700, time=1000) #lifting the whale
+    
     hub.display.icon(Icon.TRUE) # misssion accomplished
 
     # # party time!!!
