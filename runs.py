@@ -323,92 +323,35 @@ def orange_run():
     chassis.straight(-650)
 
 
-# def green_run(): #matcha
-#     # setup
-#     reset()
-#     left_arm.run_time(speed=-500, time=1500, wait=None)
-#     # drive to flag
-#     chassis.straight(distance=140, then=Stop.NONE)
-#     chassis.curve(radius=200, angle=-30)
-#     chassis.straight(distance=340, then=Stop.NONE)
-#     chassis.curve(radius=300, angle=-60)
-#     #drop flag
-#     chassis.straight(distance=210)
-#     right_arm.run_until_stalled(speed=-200) # droping the flag
-#     chassis.straight(100, then=Stop.NONE)
-#     right_arm.run_time(speed=300, time=1500)
-#     wait(1500)
-
-#     # go to forum
-#     chassis.straight(distance=50)
-#     left_arm.run_angle(speed=-500, rotation_angle=200, wait=None) # lifting the arm so it doesn't get stuck
-#     wait(500)
-#     breakpoint()
-#     chassis.curve(radius=300, angle=-90)
-#     turn_to(-150)
-#     chassis.straight(distance=50)
-#     left_arm.run_time(speed=-700, time=1000)
-#     chassis.straight(200)
-#     chassis.straight(-200)
-    
-#     # party time!!!<3
-#     turn_to(-90)
-#     chassis.straight(-300)
-#     while True:
-#         right_arm.run_angle(speed=500, rotation_angle=100, wait=None)
-#         left_arm.run_angle(speed=-500, rotation_angle=200, wait=None)
-#         turn_to(30)
-#         wait(500)
-#         right_arm.run_angle(speed=-500, rotation_angle=100, wait=None)
-#         left_arm.run_angle(speed=500, rotation_angle=200, wait=None)
-#         turn_to(-30)
-#         wait(500)
-
-#     # chassis.straight(distance=80)
-#     # chassis.curve(radius=25, angle=-69)
-#     # chassis.straight(distance=60)
-#     #chassis.straight(distance=200)
-
-#     # lift the seal
-#     #left_arm.run_time(speed=-800, time=2000)
-def green_run():  # matcha
+def green_run(): #matcha
     # setup
     reset()
-    left_arm.run_time(speed=-300, time=1500, wait=None)
-    # drive to flag 
-    chassis.straight(distance=120, then=Stop.NONE)
+    left_arm.run_time(speed=-500, time=1500, wait=None)
+    right_arm.run_time(speed=500, time=1500, wait=None)
+    # drive to flag
+    chassis.straight(distance=100, then=Stop.NONE)
     chassis.curve(radius=200, angle=-30)
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
-    chassis.straight(distance=230)
-    # drop flag
-    right_arm.run_until_stalled(100)  # droping the flag
-    hub.display.icon(Icon.TRUE) # misssion accomplished
-    chassis.straight(100, then=Stop.NONE)
-    right_arm.run_time(speed=-700, time=1000, wait=None)
+    #drop flag
+    chassis.straight(distance=150)
+    right_arm.run_time(speed=-200, time=3000)
+    chassis.straight(distance=100) 
+    right_arm.run_time(speed=200, time=3000,wait=None)
+    wait(1500)
 
     # go to forum
-    chassis.straight(distance=350)
-    hub.display.number(run[2]) # reterning the number 
+    chassis.straight(distance=430) 
     chassis.turn(-50)
+    chassis.straight(distance=130)
+    left_arm.run_time(speed=500, time=1500) # lowering the whale
+    chassis.straight(distance=20)
+    left_arm.run_time(speed=500, time=800) # lifting the whale
+    chassis.straight(distance=-120)
+    left_arm.run_time(speed=-500, time=2500) # lifting the whale
 
-    chassis.straight(250)
-    chassis.straight(-220)  # putting thing in the forum
-    chassis.turn(22)
+    # party time!!!
     
-    left_arm.run_time(speed=1000, time=1800)
-    left_arm.run_time(speed=-700, time=1000) #lifting the whale
-    
-    hub.display.icon(Icon.TRUE) # misssion accomplished
-
-    # # party time!!!
-    hub.display.icon(Icon.HEART)
-    chassis.straight(-100, then=Stop.NONE)
-    chassis.curve(radius=-250, angle=-45)
-    hub.display.icon(Icon.HEART)
-    while True:
-        left_arm.run_until_stalled(1000)
-        left_arm.run_until_stalled(-1000)
 
 
 def run_none():
