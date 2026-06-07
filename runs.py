@@ -90,11 +90,7 @@ def wheels_cleaning():
         hub.display.number(check_battery_percent())
         wait(500)
 
-
-def breakpoint():
-    while not Button.BLUETOOTH in hub.buttons.pressed():
-        pass
-    wait(250)
+# TODO: rewrite breakpoint function
 
 
 def drive_untill_black(speed, turn_rate):
