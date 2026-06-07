@@ -329,26 +329,32 @@ def green_run(): #matcha
     left_arm.run_time(speed=-500, time=1500, wait=None)
     right_arm.run_time(speed=500, time=1500, wait=None)
     # drive to flag
-    chassis.straight(distance=100, then=Stop.NONE)
+    chassis.straight(distance=130, then=Stop.NONE)
     chassis.curve(radius=200, angle=-30)
     chassis.straight(distance=340, then=Stop.NONE)
     chassis.curve(radius=300, angle=-60)
     #drop flag
     chassis.straight(distance=150)
-    right_arm.run_time(speed=-200, time=3000)
+    right_arm.run_time(speed=-100, time=3000)
     chassis.straight(distance=100) 
     right_arm.run_time(speed=200, time=3000,wait=None)
     wait(1500)
 
     # go to forum
-    chassis.straight(distance=430) 
-    chassis.turn(-50)
-    chassis.straight(distance=130)
+    chassis.straight(distance=400) 
+    chassis.turn(-48)
+    chassis.straight(distance=140)
     left_arm.run_time(speed=500, time=1500) # lowering the whale
-    chassis.straight(distance=20)
-    left_arm.run_time(speed=500, time=800) # lifting the whale
-    chassis.straight(distance=-120)
-    left_arm.run_time(speed=-500, time=2500) # lifting the whale
+    chassis.straight(distance=50)
+    left_arm.run_time(speed=1000, time=1200, wait=None) # lifting the whale
+    chassis.straight(distance=-130)
+    left_arm.run_time(speed=-800, time=2500) # lifting the whale
+    chassis.turn(-10)
+    chassis.straight(distance=200)
+    chassis.straight(distance=-300)
+    
+
+
 
     # party time!!!
     
