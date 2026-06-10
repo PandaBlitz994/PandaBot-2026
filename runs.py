@@ -160,7 +160,7 @@ def white_run():
     # setup
     reset()
     right_arm.run_time(speed=1000, time=1000, wait=None)  # making shure the arm is down
-    left_arm.run_time(speed=-1000, time=1000)  # resting dual axis arm
+    left_arm.run_until_stalled(1000)  # reseting the arm
     left_arm.run_angle(speed=700, rotation_angle=150, wait=None)
     # going to the brush
     chassis.straight(670)
@@ -172,13 +172,12 @@ def white_run():
     chassis.straight(150)
     turn_to(-35)
     chassis.use_gyro(False)
-    straight_time(speed=300, time=3000)  # revealing the map
+    straight_time(speed=400, time=3000)  # revealing the map
     chassis.use_gyro(True)
     # returning home and placing a flag
-    chassis.straight(-100)
+    chassis.straight(-105)
     turn_to(0)
-    right_arm.run_time(speed=-1000, time=2000, wait=None)  # placing the flag
-    wait(500)
+    right_arm.run_time(speed=-1000, time=2000)  # placing the flag
     chassis.straight(-500, then=Stop.NONE)
     chassis.curve(radius=-300, angle=-45)
 
@@ -358,7 +357,6 @@ def green_run(): #matcha
 
     # party time!!!
     
-
 
 def run_none():
     while True:
