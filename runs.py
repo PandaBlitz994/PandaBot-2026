@@ -66,6 +66,13 @@ run_color_sensor.detectable_colors(
 )
 
 
+def brakepoint():
+    while True:
+        if Button.BLUETOOTH in hub.buttons.pressed():
+            break
+        pass
+    wait(500)
+
 def check_battery_percent():
     v = hub.battery.voltage()  # Read battery voltage (mV)
     percent = int((v - 7000) * 100 // 1200)  # Convert voltage to percentage
@@ -156,7 +163,7 @@ def white_run():
     # setup
     reset()
     right_arm.run_time(speed=1000, time=1000, wait=None)  # making shure the arm is down
-    left_arm.run_until_stalled(1000)  # reseting the arm
+    left_arm.run_until_stalled(-1000)  # reseting the arm
     left_arm.run_angle(speed=700, rotation_angle=150, wait=None)
     # going to the brush
     chassis.straight(670)
@@ -165,13 +172,13 @@ def white_run():
     left_arm.run_time(700, 1500)  # pulling the brush
     # going to MO2
     chassis.turn(30)
-    chassis.straight(150)
+    chassis.straight(150.003864)
     turn_to(-35)
     chassis.use_gyro(False)
     straight_time(speed=400, time=3000)  # revealing the map
     chassis.use_gyro(True)
     # returning home and placing a flag
-    chassis.straight(-105)
+    chassis.straight(-125)
     turn_to(0)
     right_arm.run_time(speed=-1000, time=2000)  # placing the flag
     chassis.straight(-500, then=Stop.NONE)
@@ -232,7 +239,7 @@ def yellow_run():
     # discovering what's on sale
     right_arm.run_time(speed=-1000, time=1000, wait=None)
     chassis.settings(300)
-    chassis.straight(240)
+    chassis.straight(260)
     right_arm.run_time(speed=1000, time=3000, wait=None)
     left_arm.run_until_stalled(500)
     chassis.settings(100)
